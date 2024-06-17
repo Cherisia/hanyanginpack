@@ -25,7 +25,7 @@ export default function Navbar() {
                                 return (
                                     <Link
                                         className="text-base text-gray-500 focus:text-sky-500 focus:font-bold active:bg-sky-100"
-                                        href={item.url}>{item.name}</Link>
+                                        href={item.url} key={index}>{item.name}</Link>
                                 )
                             })
                         }
@@ -50,7 +50,7 @@ export default function Navbar() {
                                         return (
                                             <Link
                                                 className="text-gray-500 focus:text-sky-500 focus:font-bold active:bg-sky-100"
-                                                href={item.url}>{item.name}</Link>
+                                                href={item.url} key={index}>{item.name}</Link>
                                         )
                                     })
                                 }
