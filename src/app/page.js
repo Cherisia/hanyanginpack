@@ -1,11 +1,11 @@
 import Navbar from "@/components/Navbar";
+import Main from "@/components/Main";
 
 export default function Home() {
     return (
-        <div className="relative">
+        <div>
             <Navbar/>
-            <main className="absolute top-24">
-            </main>
+            <Main/>
         </div>
     )
 }
