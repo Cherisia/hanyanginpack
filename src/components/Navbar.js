@@ -13,7 +13,7 @@ export default function Navbar() {
         {name: 'Discover', url: '/'}
     ];
     return (
-        <header className="fixed top-0 left-0 right-0 border-b border-gray-100 bg-white/90 z-30">
+        <header className="fixed top-0 left-0 right-0 border-b border-gray-100 bg-white z-30">
             <div className="container px-4 py-6 space-y-4 mx-auto">
                 <div className="flex justify-between">
                     <Link href="#">
