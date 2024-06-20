@@ -1,4 +1,5 @@
 import "./globals.css";
+import KakaoChatButton from "@/components/KakaoChatButton";
 
 export const metadata = {
     title: "Create Next App",
@@ -10,6 +11,7 @@ export default function RootLayout({children}) {
         <html lang="ko">
         <body>
         {children}
+        <KakaoChatButton/>
         </body>
         </html>
     );
