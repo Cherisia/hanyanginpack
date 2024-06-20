@@ -7,17 +7,17 @@ import {useState} from "react";
 export default function Navbar() {
     let [isOpen, setIsOpen] = useState(false);
     const menu = [
-        {name: 'Components', url: '/'},
-        {name: 'Blocks', url: '/'},
-        {name: 'Cheatsheet', url: '/'},
-        {name: 'Discover', url: '/'}
+        {name: '소개', url: '/about'},
+        {name: '포트폴리오', url: '/portfolio'},
+        {name: '자주 묻는 질문', url: '/qna'},
+        {name: '견적문의', url: '/contact'}
     ];
     return (
         <header className="fixed top-0 left-0 right-0 border-b border-gray-100 bg-white z-30">
             <div className="container px-4 py-6 space-y-4 mx-auto">
                 <div className="flex justify-between">
                     <Link href="#">
-                        <Image src="/svg/navbar-logo.svg" width={110} height={30}/>
+                        <Image src="/svg/logo.svg" width={110} height={30}/>
                     </Link>
                     <div className="hidden xl:flex xl:justify-between xl:items-center xl:space-x-8">
                         {
