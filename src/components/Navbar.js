@@ -10,13 +10,13 @@ export default function Navbar() {
         {name: '소개', url: '/about'},
         {name: '포트폴리오', url: '/portfolio'},
         {name: '자주 묻는 질문', url: '/qna'},
-        {name: '견적문의', url: '/contact'}
+        {name: '견적문의', url: '/inquiry'}
     ];
     return (
         <header className="fixed top-0 left-0 right-0 border-b border-gray-100 bg-white z-30">
             <div className="container px-4 py-6 space-y-4 mx-auto">
                 <div className="flex justify-between">
-                    <Link href="#">
+                    <Link href="/">
                         <Image src="/svg/logo.svg" width={110} height={30}/>
                     </Link>
                     <div className="hidden xl:flex xl:justify-between xl:items-center xl:space-x-8">
