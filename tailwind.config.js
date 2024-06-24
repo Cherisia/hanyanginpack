@@ -7,6 +7,11 @@ module.exports = {
         "./node_modules/flowbite/**/*.js"
     ],
     theme: {
+        fontFamily: {
+          'nanumL': ['NanumSquareL'],
+          'nanumR': ['NanumSquareR'],
+          'nanumB': ['NanumSquareB'],
+        },
         extend: {
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -3,21 +3,18 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: NanumSquare;
+    font-family: NanumSquareL;
     src: url('/fonts/NanumSquareL.woff2') format('woff2');
-    font-weight: 300;
 }
 
 @font-face {
-    font-family: NanumSquare;
+    font-family: NanumSquareR;
     src: url('/fonts/NanumSquareR.woff2') format('woff2');
-    font-weight: 400;
 }
 
 @font-face {
-    font-family: NanumSquare;
+    font-family: NanumSquareB;
     src: url('/fonts/NanumSquareB.woff2') format('woff2');
-    font-weight: 700;
 }
 
 :root {
@@ -35,7 +32,7 @@
 }
 
 body {
-    font-family: NanumSquare, sans-serif;
+    font-family: NanumSquareR, sans-serif;
 }
 
 @layer utilities {
