@@ -82,11 +82,11 @@ export default function Inquiry() {
                             {
                                 boxes.map((box, index) => {
                                     return (
-                                        <div className="box-border w-1/3 md:w-1/4 xl:w-1/6 p-[0.09rem]" key={index}>
+                                        <div className="relative box-border w-20 h-20 m-0.5" key={index}>
                                             <input type="checkbox" id={box.number} className="hidden peer"/>
-                                            <label htmlFor={box.number} className="relative w-full select-none cursor-pointer flex items-center justify-center border-2 border-gray-100
-            py-16 transition-colors duration-200 peer-checked:border-gray-600">
-                                                <Image src={`/img/inquiry/box/${box.number}.png`} alt={box.name} fill/>
+                                            <label htmlFor={box.number} className="relative w-20 h-20 select-none cursor-pointer flex items-center justify-center border-2 border-gray-100
+            transition-colors duration-200 peer-checked:border-cyan-600">
+                                                <Image className="p-2" src={`/img/inquiry/box/${box.number}.png`} alt={box.name} fill/>
                                             </label>
                                         </div>
                                     )
