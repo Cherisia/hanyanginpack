@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <footer className="relative top-20 border-t border-gray-100">
+        <footer className="relative top-20 bg-gray-100">
             <div className="flex flex-wrap container max-md:px-10 md:px-10 xl:px-52 py-6 mx-auto text-sm text-gray-600 space-y-0.5 max-md:space-y-4">
                 <div className="basis-full mb-4">
                     <Image src="/svg/logo.svg" width={150} height={50} alt="한양인팩 로고"/>

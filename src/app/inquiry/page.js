@@ -5,9 +5,11 @@ import Form from "@/components/inquiry/Form";
 export default function Inquiry() {
 
     return (
-        <div className="container mx-auto relative top-20 w-full">
+        <div className="w-full top-20 relative bg-gray-50 pb-10">
             <Banner/>
             <MainSection/>
             <Form/>
-        </div>)
+        </div>
+    )
+
 }

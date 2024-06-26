@@ -2,7 +2,7 @@ import BoxTypes from "@/components/inquiry/BoxTypes";
 
 export default function Form() {
     return (
-        <div className="xl:w-7/12 md:w-8/12 max-md:w-11/12 mx-auto mb-12">
+        <div className="container xl:w-7/12 md:w-8/12 max-md:w-11/12 mx-auto">
             <form className="space-y-4 md:space-y-6" method="POST">
                 <div>
                     <label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-900">
