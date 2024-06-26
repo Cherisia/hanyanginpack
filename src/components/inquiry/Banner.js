@@ -5,8 +5,8 @@ export default function Banner() {
     let title = '견적문의';
     let content = '최고의 결과물을 만나보세요';
     return (
-        <div className="relative h-[24rem] max-w-screen-2xl mx-auto">
-            <Image className="brightness-[60%] rounded-lg p-1" src={MainImage} fill={true} placeholder="blur"
+        <div className="relative h-[24rem] mx-auto">
+            <Image className="brightness-[50%] object-cover" src={MainImage} fill={true} placeholder="blur"
                    alt="한양인팩 견적문의 메인 이미지"/>
             <div
                 className="w-full max-lg:px-8 absolute text-white text-center top-[35%] tracking-tighter space-y-10">
