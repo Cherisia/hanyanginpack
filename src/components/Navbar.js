@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import Logo from "/public/svg/logo.svg";
+import Logo from "/public/logo/logo.svg";
 
 export default function Navbar() {
     let [isOpen, setIsOpen] = useState(false);
@@ -24,11 +24,11 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header className={"fixed top-0 left-0 right-0 transition-colors duration-[400ms] border-gray-100 z-30 " + (top === 0 ? "" : "bg-slate-50")}>
-            <div className="container px-4 py-4 space-y-4 mx-auto">
+        <header className={"fixed top-0 left-0 right-0 transition-colors duration-[400ms] border-gray-100 z-30 " + (top !== 0 || isOpen ? "bg-slate-50" : "")}>
+            <div className={"container transition-all duration-[400ms] px-4 space-y-4 mx-auto " + ( top === 0 ? "py-4" : "py-2") }>
                 <div className="flex justify-between">
                     <Link href="/">
-                        <Logo fill={top === 0 ? "rgb(248 250 252)" : "black"}/>
+                        <Logo width={150} height={50} fill={top !== 0 || isOpen ? "black" : "rgb(248 250 252)"}/>
                     </Link>
                     <div className="hidden xl:flex xl:justify-between xl:items-center xl:space-x-8">
                         {
@@ -41,11 +41,11 @@ export default function Navbar() {
                             })
                         }
                     </div>
-                    <button className="p-1 rounded bg-white focus:bg-gray-100 active:bg-sky-100 xl:hidden"
+                    <button className="p-1 rounded xl:hidden"
                             onClick={() => {
                                 setIsOpen(!isOpen)
                             }}>
-                        <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-gray-700">
+                        <svg viewBox="0 0 20 20" fill="currentColor" className={"w-6 h-6 " + ( top !== 0 || isOpen ? "text-gray-500" : "text-slate-100")}>
                             <path fillRule="evenodd"
                                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                                   clipRule="evenodd"></path>

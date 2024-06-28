@@ -17,6 +17,11 @@
     src: url('/fonts/NanumSquareB.woff2') format('woff2');
 }
 
+@font-face {
+    font-family: NanumSquareEB;
+    src: url('/fonts/NanumSquareEB.woff2') format('woff2');
+}
+
 :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;

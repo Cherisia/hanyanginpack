@@ -11,6 +11,7 @@ module.exports = {
           'nanumL': ['NanumSquareL'],
           'nanumR': ['NanumSquareR'],
           'nanumB': ['NanumSquareB'],
+          'nanumEB': ['NanumSquareEB'],
         },
         extend: {
             backgroundImage: {
