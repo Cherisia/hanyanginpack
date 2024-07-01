@@ -1,7 +1,7 @@
 import "./globals.css";
-import KakaoChatButton from "@/components/KakaoChatButton";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import KakaoChatButton from "@/components/share/KakaoChatButton";
+import Navbar from "@/components/share/Navbar";
+import Footer from "@/components/share/Footer";
 
 export const metadata = {
     title: "Create Next App",

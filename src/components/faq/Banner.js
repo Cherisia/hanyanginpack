@@ -1,8 +1,8 @@
 import Image from "next/image";
-import MainImage from "/public/img/inquiry/inquiry_main.jpg"
+import MainImage from "/public/img/faq/faq_main.jpg"
 
 export default function Banner() {
-    const title = '견적문의';
+    const title = '자주 묻는 질문';
     const content = '최고의 결과물을 만나보세요';
     return (
         <div className="relative h-[24rem] mx-auto">
