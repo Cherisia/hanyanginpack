@@ -4,7 +4,7 @@ import Form from "@/components/inquiry/Form";
 
 export default function Inquiry() {
     return (
-        <div className="w-full top-20 relative bg-gray-50 pb-10">
+        <div className="w-full top-[4.5rem] relative bg-gray-50 pb-10">
             <Banner/>
             <MainSection/>
             <Form/>

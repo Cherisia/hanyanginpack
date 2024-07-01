@@ -38,11 +38,11 @@ export default function Service() {
                                         />
                                         <div className="space-y-2">
                                             <h5
-                                                className="text-xl font-medium text-gray-700 transition group-hover:text-primary"
+                                                className="text-xl font-medium text-gray-700 transition group-hover:text-cyan-600"
                                             >
                                                 {item.name}
                                             </h5>
-                                            <p className="text-sm text-gray-600 break-keep">
+                                            <p className="text-sm text-gray-600 break-keep group-hover:text-cyan-500">
                                                 {item.content}
                                             </p>
                                         </div>
