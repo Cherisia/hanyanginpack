@@ -1,5 +1,5 @@
 import Image from "next/image";
-import MainImage from "/public/img/main/main.webp";
+import MainImage from "/public/img/main/main.jpg";
 import InquiryButton from "/public/img/main/inquiry_button.png";
 import Link from "next/link";
 
