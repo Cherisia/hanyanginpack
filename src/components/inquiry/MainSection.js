@@ -7,7 +7,7 @@ export default function MainSection() {
         '답변해 드리겠습니다.'
     ];
     return (
-        <div className="container p-8 text-center text-base text-gray-700 space-y-6 mx-auto">
+        <div className="container p-8 text-center text-base text-gray-700 space-y-6 mx-auto break-keep">
             <p><span className="hy-underline">{content[0]}</span> {content[1]}</p>
             <p>{content[2]} <span className="hy-underline">{content[3]}</span> {content[4]}</p>
         </div>

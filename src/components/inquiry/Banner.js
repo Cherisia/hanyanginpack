@@ -10,7 +10,7 @@ export default function Banner() {
                    alt="한양인팩 견적문의 메인 이미지"/>
             <div
                 className="w-full max-lg:px-8 absolute text-white text-center top-[35%] tracking-tighter space-y-10">
-                <div className="font-normal md:font-black text-6xl font-[nanumB]">
+                <div className="font-normal md:font-black tracking-tighter text-5xl font-[nanumB]">
                     {title}
                 </div>
                 <div className="text-xl">
