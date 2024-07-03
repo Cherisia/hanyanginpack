@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MainImage from "/public/img/faq/faq_main.jpg"
+import TypingText from "@/components/utils/TypingText";
 
 export default function Banner() {
     const title = '자주 묻는 질문';
@@ -14,7 +15,7 @@ export default function Banner() {
                     {title}
                 </div>
                 <div className="text-xl">
-                    {content}
+                    <TypingText text={content}/>
                 </div>
             </div>
         </div>

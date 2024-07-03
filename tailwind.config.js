@@ -19,6 +19,14 @@ module.exports = {
                 "gradient-conic":
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
+            keyframes: {
+                blink: {
+                    to: { opacity: '0' },
+                },
+            },
+            animation: {
+                typing: 'blink 1s infinite',
+            },
         },
     },
     plugins: [

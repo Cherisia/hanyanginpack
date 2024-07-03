@@ -1,9 +1,10 @@
 import Image from "next/image";
 import MainImage from "/public/img/inquiry/inquiry_main.jpg"
+import TypingText from "@/components/utils/TypingText";
 
 export default function Banner() {
     const title = '견적문의';
-    const content = '최고의 결과물을 만나보세요';
+    const content = '최고의 결과물을 만나보세요!';
     return (
         <div className="relative h-[24rem] mx-auto">
             <Image className="brightness-[50%] object-cover" src={MainImage} fill={true} placeholder="blur"
@@ -14,7 +15,7 @@ export default function Banner() {
                     {title}
                 </div>
                 <div className="text-xl">
-                    {content}
+                    <TypingText text={content}/>
                 </div>
             </div>
         </div>
