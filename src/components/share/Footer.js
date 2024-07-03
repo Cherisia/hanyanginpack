@@ -16,7 +16,7 @@ export default function Footer() {
                 </div>
                 <div className="w-5/12 max-md:w-full">
                     <p className="font-bold">고객센터</p>
-                    <h1 className="text-4xl font-black tracking-tight">031-997-9021</h1>
+                    <h1 className="max-sm:text-3xl text-4xl font-black tracking-tight">031-997-9021</h1>
                     <p>평일 9:00 ~ 18:00 (토,일,공휴일 휴무)</p>
                     <p className="break-keep">입금계좌 : 농협 241020-51-038249 윤도상 (한양인팩)</p>
                 </div>
