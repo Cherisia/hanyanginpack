@@ -8,8 +8,8 @@ import {useOutsideClick} from "@/hooks/useOutsideClick";
 
 export default function Navbar() {
     const menu = [
-        {name: '소개', url: '/about'},
-        {name: '포트폴리오', url: '/portfolio'},
+        {name: '회사소개', url: '/about'},
+        {name: '오시는길', url: '/contact'},
         {name: '자주 묻는 질문', url: '/faq'},
         {name: '견적문의', url: '/inquiry'}
     ];
