@@ -14,21 +14,41 @@ export default function Map() {
 
         const onLoadKakaoApi = () => {
             window.kakao.maps.load(() => {
-                let container = mapRef.current; //지도를 담을 영역의 DOM 레퍼런스
-                let options = { //지도를 생성할 때 필요한 기본 옵션
-                    center: new window.kakao.maps.LatLng(37.60701609999958, 126.71023685393473), //지도의 중심좌표.
-                    level: 3 //지도의 레벨(확대, 축소 정도)
+                // 지도 객체 생성
+                let container = mapRef.current;
+                let options = {
+                    center: new window.kakao.maps.LatLng(37.60698479059329, 126.71444256623778),
+                    level: 3
                 };
-                let map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+                let map = new window.kakao.maps.Map(container, options);
+
+                // 줌 컨트롤 생성
+                var zoomControl = new kakao.maps.ZoomControl();
+                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+                // 마커 생성
+                let markerPosition  = new window.kakao.maps.LatLng(37.60698479059329, 126.71444256623778);
+                let marker = new window.kakao.maps.Marker({
+                    position: markerPosition
+                });
+                marker.setMap(map);
+
+                // 커스텀 오버레이
+                let content = '<div class="info-title"><img src="/logo/logo.svg" alt="#"/></div>'
+                let position = new window.kakao.maps.LatLng(37.60698479059329, 126.71444256623770);
+                let customOverlay = new window.kakao.maps.CustomOverlay({
+                    map: map,
+                    position: position,
+                    content: content,
+                    yAnchor: 1
+                });
             })
         }
         kakaoMapScript.addEventListener('load', onLoadKakaoApi);
     }, [])
 
     return (
-        <div className="mx-auto">
-            <div id="map" ref={mapRef} className="max-w-screen w-[600px] h-[400px] lg:w-[900px] lg:h-[600px] xl:w-[1000px] xl:h-[600px] mx-auto">
-            </div>
+        <div ref={mapRef} className="w-full h-full">
         </div>
     )
 }

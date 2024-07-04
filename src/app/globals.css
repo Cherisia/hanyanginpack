@@ -73,3 +73,18 @@ body {
     visibility: visible;
     opacity: 1;
 }
+
+.info-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3fcfc;
+    border: 1px solid rgb(66 174 184);
+    width: 98px;
+    height: 26px;
+    border-radius: 22px;
+    padding: 0px 10px;
+    position: absolute;
+    top: -68px;
+    left: -49px;
+}

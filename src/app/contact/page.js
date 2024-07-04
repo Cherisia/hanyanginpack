@@ -1,7 +1,6 @@
 import Banner from "@/components/contact/Banner";
 import MainSection from "@/components/contact/MainSection";
 import Cards from "@/components/contact/Cards";
-import Map from "@/components/contact/Map";
 
 export default function About() {
     return (
@@ -9,7 +8,6 @@ export default function About() {
             <Banner/>
             <MainSection/>
             <Cards/>
-            <Map/>
         </div>
     )
 }
