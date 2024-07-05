@@ -18,7 +18,8 @@ export default function Map() {
                 let container = mapRef.current;
                 let options = {
                     center: new window.kakao.maps.LatLng(37.60698479059329, 126.71444256623778),
-                    level: 3
+                    level: 3,
+                    draggable: false,
                 };
                 let map = new window.kakao.maps.Map(container, options);
 
