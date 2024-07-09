@@ -1,6 +1,7 @@
 import BoxTypes from "@/components/inquiry/BoxTypes";
+import pool from "@/utils/database";
 
-export default function Form() {
+export default async function Form() {
     return (
         <div className="container xl:w-7/12 md:w-8/12 max-md:w-11/12 mx-auto">
             <form className="space-y-4 md:space-y-6" method="POST">
@@ -20,10 +21,10 @@ export default function Form() {
                            placeholder="담당자명" autoComplete="name" required></input>
                 </div>
                 <div>
-                    <label htmlFor="phone"
+                    <label htmlFor="contact"
                            className="block mb-2 text-sm font-medium text-gray-900">연락처 <span
                         className="text-red-700">*</span></label>
-                    <input type="text" name="phone" id="phone"
+                    <input type="text" name="contact" id="contact"
                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
                            placeholder="ex) 010-0000-0000" autoComplete="tel-national" required></input>
                 </div>
@@ -41,10 +42,10 @@ export default function Form() {
                     <BoxTypes/>
                 </div>
                 <div>
-                    <label htmlFor="amount"
+                    <label htmlFor="quantity"
                            className="block mb-2 text-sm font-medium text-gray-900">수량 <span
                         className="text-red-700">*</span></label>
-                    <input type="text" name="amount" id="amount"
+                    <input type="text" name="quantity" id="quantity"
                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
                            placeholder="ex) 1000개 이상" autoComplete="off" required></input>
                 </div>
@@ -57,9 +58,9 @@ export default function Form() {
                            placeholder="ex) 서울시 강남구 역삼동" autoComplete="address" required></input>
                 </div>
                 <div>
-                    <label htmlFor="other"
+                    <label htmlFor="description"
                            className="block mb-2 text-sm font-medium text-gray-900">기타 문의사항</label>
-                    <textarea name="other" id="other" rows="3"
+                    <textarea name="description" id="description" rows="3"
                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
                               maxLength="200" placeholder="기타 문의사항이 있으시면 작성해주세요." autoComplete="off"></textarea>
                 </div>
