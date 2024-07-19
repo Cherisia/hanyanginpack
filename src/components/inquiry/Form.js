@@ -1,23 +1,86 @@
 'use client'
 
 import Image from "next/image";
-import boxes from "@/components/utils/boxes";
+import Boxes from "@/components/utils/Boxes";
 import {useForm} from "react-hook-form";
 import {RiErrorWarningFill} from "react-icons/ri";
 import {BiCustomize} from "react-icons/bi";
+import {useState} from "react";
+import Sweetalert2 from "sweetalert2";
+import {useRouter} from "next/navigation";
 
 export default function Form() {
-
+    const router = useRouter();
+    const [disabled, setDisabled] = useState(false);
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit = data => {
-        console.log(data);
-        fetch('/api/inquiry', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => response.json()).then();
+    const onSubmit = (data) => {
+        setDisabled(true);
+        Sweetalert2.fire({
+            text: "문의내용을 등록하시겠어요?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "rgb(129 140 248)",
+            cancelButtonColor: "rgb(251 113 133)",
+            confirmButtonText: "등록",
+            cancelButtonText: "닫기"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/api/inquiry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(r => {
+                    return r.json();
+                }).then(data => {
+                    if (data === "OK") {
+                        // success
+                        Sweetalert2.fire({
+                            html: `<div>등록이 완료되었습니다.</div><div>최대한 빠르게 연락드리겠습니다! 😊😊</div>`,
+                            icon: "success",
+                            confirmButtonColor: "rgb(251 113 133)",
+                            confirmButtonText: "닫기",
+                        }).then(() => {
+                            setDisabled(false);
+                            router.refresh();
+                        });
+                    } else {
+                        // fail
+                        let text;
+                        if (data.indexOf("is null") > -1) {
+                            text = `<div>입력하지 않은 내용이 있습니다.</div><div>다시 입력해주세요.</div>`
+                        } else if (data.indexOf("is too long") > -1) {
+                            text = `<div>입력하신 내용이 너무 깁니다.</div><div>다시 입력해주세요.</div>`
+                        } else if (data.indexOf("is invalid") > -1) {
+                            text = `<div>유효하지않은 ${data.substring(0, data.indexOf("is invalid"))} 형식입니다.</div><div>다시 입력해주세요.</div>`
+                        } else {
+                            text = `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`
+                        }
+                        Sweetalert2.fire({
+                            html: `${text}`,
+                            icon: "error",
+                            confirmButtonColor: "rgb(251 113 133)",
+                            confirmButtonText: "닫기",
+                        }).then(() => {
+                            setDisabled(false);
+                        });
+                    }
+                }).catch(e => {
+                    // fetch error
+                    Sweetalert2.fire({
+                        html: `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`,
+                        icon: "error",
+                        confirmButtonColor: "rgb(251 113 133)",
+                        confirmButtonText: "닫기",
+                    }).then(() => {
+                        setDisabled(false);
+                    });
+                });
+            } else {
+                setDisabled(false);
+            }
+        });
     }
     const onError = error => console.log('error : ' + error);
 
@@ -107,7 +170,7 @@ export default function Form() {
                     <div className="block mb-2 text-sm font-medium text-gray-900">박스형태</div>
                     <div className="flex flex-wrap">
                         {
-                            boxes.map((box, index) => {
+                            Boxes.map((box, index) => {
                                 return (
                                     <div className="tooltip relative box-border w-28 h-28 m-0.5" key={index}>
                                         <input type="radio" id={box.number} className="hidden peer"
@@ -199,8 +262,14 @@ export default function Form() {
                     </div>
                 </div>
                 <button type="submit"
-                        className="w-full text-white bg-sky-400 hover:bg-sky-500 focus:ring-2 focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    문의 등록
+                        className="w-full text-white bg-sky-400 hover:bg-sky-500 disabled:bg-sky-700 font-medium rounded-lg text-base px-5 py-3.5 text-center" disabled={disabled}>
+                    <svg width="20" height="20" fill="currentColor" className={"mr-4 animate-spin " + ( disabled ? "inline" : "hidden" )}
+                         viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z">
+                        </path>
+                    </svg>
+                    {disabled ? '잠시만 기다려주세요...' : '문의 등록'}
                 </button>
             </form>
         </div>
