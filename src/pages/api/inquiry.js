@@ -2,7 +2,6 @@ import {executeQuery} from "@/pages/utils/database";
 
 export default async function inquiry(req, resp) {
     if (req.method === 'POST') {
-        return resp.status(400).json('box is invalid');
         try {
             // validate parameter
             let form = ['company', 'name', 'contact', 'email', 'box', 'quantity', 'region', 'description'];
