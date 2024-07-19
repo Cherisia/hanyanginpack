@@ -1,4 +1,4 @@
-import {executeQuery} from "@/pages/utils/database";
+import {executeQuery} from "@/components/lib/database";
 
 export default async function inquiry(req, resp) {
     if (req.method === 'POST') {
