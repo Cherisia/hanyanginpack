@@ -21,7 +21,7 @@ export default function Service() {
                     </p>
                 </div>
                 <div
-                    className="mt-8 grid divide-x divide-y divide-gray-100 overflow-hidden rounded-3xl border border-gray-100 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+                    className="mt-8 shadow-xl grid divide-x divide-y divide-gray-100 overflow-hidden rounded-3xl border border-gray-100 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
                     {
                         items.map((item, index) => {
                             return (
@@ -29,7 +29,7 @@ export default function Service() {
                                     className="group relative bg-white transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
                                     key={index}>
                                     <div className="relative space-y-8 py-12 p-8">
-                                        <Image src={`/img/${item.src}`}
+                                        <Image src={`/img/main/service/${item.src}`}
                                                className="w-16"
                                                width="512"
                                                height="512"
