@@ -7,8 +7,6 @@ import facilities_5 from "/public/img/main/facilities/facilities_5.jpg";
 import facilities_6 from "/public/img/main/facilities/facilities_6.jpg";
 
 export default function Facilities() {
-    let title = 'Trustworthy Partner';
-    let subTitle = '신뢰할 수 있는 파트너';
     let facilities = [facilities_1, facilities_2, facilities_3, facilities_4, facilities_5, facilities_6];
     return (
         <section className="container px-4 py-16 m-auto md:px-12">
@@ -16,8 +14,10 @@ export default function Facilities() {
                 {
                     facilities.map((item, index) => {
                         return (
-                            <div className="relative w-1/3 h-72" key={index}>
-                                <Image className="p-2 object-cover grayscale brightness-80 hover:brightness-75 rounded-xl" src={item} alt={"공장설비" + index} fill/>
+                            <div className="relative p-2 w-full h-48 md:w-1/2 xl:w-1/3 xl:h-72" key={index}>
+                                <Image
+                                    className="object-cover grayscale brightness-80 hover:brightness-75 rounded-xl w-full h-full"
+                                    src={item} alt={"공장설비" + index} placeholder="blur"/>
                             </div>
                         )
                     })

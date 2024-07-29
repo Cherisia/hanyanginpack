@@ -16,7 +16,7 @@ export default function Hero() {
                     <div className="text-base break-keep font-bold">한양인팩은 최고의 서비스와 다년간 축적된 노하우로 최상의 패키지를 만들어 냅니다.</div>
                     <div>
                         <Link className="border rounded-md px-5 py-4 hover:bg-sky-100 hover:text-gray-600 border-slate-100 space-x-2 font-bold" href="/inquiry">
-                            <Image className="inline" src={InquiryButton} width={30} height={30}/>
+                            <Image className="inline" src={InquiryButton} width={30} height={30} alt="견적문의 아이콘"/>
                             <span>견적 문의하기</span>
                         </Link>
                     </div>
