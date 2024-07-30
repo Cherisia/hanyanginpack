@@ -16,7 +16,7 @@ export default function Facilities() {
                         return (
                             <div className="relative p-2 w-full h-48 md:w-1/2 xl:w-1/3 xl:h-72" key={index}>
                                 <Image
-                                    className="object-cover grayscale brightness-80 hover:brightness-75 rounded-xl w-full h-full"
+                                    className="object-cover grayscale brightness-80 hover:brightness-75 rounded w-full h-full"
                                     src={item} alt={"공장설비" + index} placeholder="blur"/>
                             </div>
                         )
