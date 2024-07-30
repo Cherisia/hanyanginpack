@@ -17,6 +17,7 @@ export default function Navbar() {
 
     const [top, setTop] = useState(0);
     useEffect(() => {
+        setTop(window.scrollY);
         window.addEventListener("scroll", () => {setTop(window.scrollY)});
         return () => {
             window.removeEventListener("scroll", () => {setTop(window.scrollY)});
