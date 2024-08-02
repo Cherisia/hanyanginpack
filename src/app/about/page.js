@@ -1,6 +1,7 @@
 import Banner from "@/components/about/Banner";
 import MainSection from "@/components/about/MainSection";
 import Visions from "@/components/about/Visions";
+import Facilities from "@/components/about/Facilities";
 
 export default function About() {
     return (
@@ -8,6 +9,7 @@ export default function About() {
             <Banner/>
             <MainSection/>
             <Visions/>
+            <Facilities/>
         </div>
     )
 }

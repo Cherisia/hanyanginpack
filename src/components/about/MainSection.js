@@ -8,12 +8,15 @@ export default function MainSection() {
     ];
 
     return (
-        <div className="container mt-12 p-8 text-base font-medium text-gray-700 space-y-3 mx-auto break-keep tracking-tighter">
-            <h1 className="font-bold text-lg mb-4">{title}</h1>
-            <p><span className="hy-underline">{content[0]}</span>{content[1]} <span className="hy-underline">{content[2]}</span>{content[3]}</p>
-            <p>{content[4]}</p>
-            <p>{content[5]} <span className="hy-underline">{content[6]}</span>{content[7]}</p>
-            <p>{content[8]} <span className="hy-underline">{content[9]}</span>{content[10]}</p>
+        <div className="container mt-12 p-8 text-base font-medium text-gray-700 space-y-10 mx-auto break-keep tracking-tighter">
+            <h1 className="font-bold text-2xl">{title}</h1>
+            <div className="border border-gray-400 w-32"></div>
+            <div className="space-y-6">
+                <p><span className="hy-underline">{content[0]}</span>{content[1]} <span className="hy-underline">{content[2]}</span>{content[3]}</p>
+                <p>{content[4]}</p>
+                <p>{content[5]} <span className="hy-underline">{content[6]}</span>{content[7]}</p>
+                <p>{content[8]} <span className="hy-underline">{content[9]}</span>{content[10]}</p>
+            </div>
         </div>
     )
 }
