@@ -1,12 +1,12 @@
 import Hero from "@/components/main/Hero";
-import Service from "@/components/main/Service";
 import Client from "@/components/main/Client";
+import Visions from "@/components/about/Visions";
 
 export default function Home() {
     return (
         <div>
             <Hero/>
-            <Service/>
+            <Visions/>
             <Client/>
         </div>
     )
