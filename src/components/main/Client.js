@@ -43,7 +43,7 @@ export default function Client() {
             {
                 breakpoint: 640,
                 settings: {
-                    slidesToShow: 1
+                    slidesToShow: 2
                 }
             },
             {
@@ -65,7 +65,7 @@ export default function Client() {
                         clients.map((item, index) => {
                             return (
                                 <div className="relative w-1/3 h-24 outline-none" key={index}>
-                                    <Image className="px-[4.5rem] py-6 md:px-[4rem] md:py-7" src={item.img}
+                                    <Image className="px-8 py-7 lg:px-10 lg:py-6" src={item.img}
                                            alt={item.name} sizes={100} fill/>
                                 </div>
                             )
@@ -74,6 +74,5 @@ export default function Client() {
                 </Slider>
             </div>
         </section>
-
     )
 }
