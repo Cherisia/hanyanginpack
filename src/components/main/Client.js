@@ -56,8 +56,8 @@ export default function Client() {
     };
     return (
         <section className="container px-4 py-16 m-auto md:px-12 text-center">
-            <h1><span className="text-4xl text-gray-700 hy-underline">{title[0]}</span><span
-                className="text-2xl text-gray-600">{title[1]}</span></h1>
+            <h3><span className="text-4xl text-gray-700 hy-underline">{title[0]}</span><span
+                className="text-2xl text-gray-600">{title[1]}</span></h3>
             <p className="text-2xl text-gray-400 mt-4 mb-8 tracking-widest">{subTitle}</p>
             <div className="slider-container w-full xl:w-3/4 border-y-2 border-gray-100 m-auto">
                 <Slider className="h-24" {...settings}>

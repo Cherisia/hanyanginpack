@@ -9,7 +9,7 @@ export default function Visions() {
     const content = '한양인팩은 고객의 요구에 부응하기 위해 최선을 다합니다.';
     return (
         <div className="container mt-20 p-8 space-y-10 mx-auto break-keep tracking-tight">
-            <h1 className="text-center text-4xl font-bold">{title}</h1>
+            <h3 className="text-center text-4xl font-bold">{title}</h3>
             <p className="text-center text-base text-gray-500">{content}</p>
             <div className="box-border flex flex-wrap w-full text-center">
                 <div className="box-border w-full md:w-1/2 xl:w-1/4 p-2">

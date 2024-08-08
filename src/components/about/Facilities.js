@@ -12,7 +12,7 @@ export default function Facilities() {
     let facilities = [facilities_1, facilities_2, facilities_3, facilities_4, facilities_5, facilities_6];
     return (
         <section className="container mt-20 p-8 space-y-10 mx-auto break-keep tracking-tight">
-            <h1 className="text-center text-4xl font-bold">{title}</h1>
+            <h3 className="text-center text-4xl font-bold">{title}</h3>
             <p className="text-center text-base text-gray-500">{content}</p>
             <div className="flex flex-wrap w-full">
                 {

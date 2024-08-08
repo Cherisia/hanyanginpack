@@ -17,9 +17,9 @@ export default function Service() {
         <section className="container px-4 py-16 m-auto md:px-12">
             <div className="text-gray-500">
                 <div>
-                    <h2 className="mt-4 text-center text-2xl font-bold text-gray-900 md:text-4xl">
+                    <h3 className="mt-4 text-center text-2xl font-bold text-gray-900 md:text-4xl">
                         {title}
-                    </h2>
+                    </h3>
                     <p className="mt-4 text-center text-base text-gray-500 md:text-2xl underline decoration-cyan-100 decoration-[15px] underline-offset-[-5px]">
                         {subTitle}
                     </p>

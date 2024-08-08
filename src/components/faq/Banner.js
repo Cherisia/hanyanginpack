@@ -11,9 +11,9 @@ export default function Banner() {
                    alt="한양인팩 자주묻는질문 메인 이미지"/>
             <div
                 className="w-full max-lg:px-8 absolute text-white text-center top-[35%] tracking-tighter space-y-10">
-                <div className="font-normal md:font-black tracking-tighter text-5xl font-[nanumB]">
+                <h1 className="font-normal md:font-black tracking-tighter text-5xl font-[nanumB]">
                     {title}
-                </div>
+                </h1>
                 <div className="text-xl">
                     <TypingText text={content}/>
                 </div>
