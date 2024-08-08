@@ -1,13 +1,17 @@
 import Image from "next/image";
+import ability from "/public/img/about/service/ability.gif"
+import trust from "/public/img/about/service/trust.gif"
+import creative from "/public/img/about/service/creative.gif"
+import innovation from "/public/img/about/service/innovation.gif"
 
 export default function Service() {
     let title = 'Trustworthy Partner';
     let subTitle = '신뢰할 수 있는 파트너';
     let items = [
-        {name: 'Ability', content: '한양인팩은 차별화된 아이디어와 기획력을 갖춘 최고의 인재가 소비자의 마음을 움직일 수 있는 결과물을 창조합니다', src: 'ability.gif'},
-        {name: 'Trust', content: '다년간 축적된 신용과 신뢰를 바탕으로 안정적이고 유연하게 고객사를 지원합니다', src: 'trust.gif'},
-        {name: 'Creative', content: '창의적인 사고를 통해 변화를 주도하며 가치를 창조합니다', src: 'creative.gif'},
-        {name: 'Innovation', content: '고객과의 신뢰를 바탕으로 더나은 서비스를 제공해드릴수 있도록 지속적으로 연구하고 노력합니다', src: 'innovation.gif'}
+        {name: 'Ability', content: '한양인팩은 차별화된 아이디어와 기획력을 갖춘 최고의 인재가 소비자의 마음을 움직일 수 있는 결과물을 창조합니다', src: ability},
+        {name: 'Trust', content: '다년간 축적된 신용과 신뢰를 바탕으로 안정적이고 유연하게 고객사를 지원합니다', src: trust},
+        {name: 'Creative', content: '창의적인 사고를 통해 변화를 주도하며 가치를 창조합니다', src: creative},
+        {name: 'Innovation', content: '고객과의 신뢰를 바탕으로 더나은 서비스를 제공해드릴수 있도록 지속적으로 연구하고 노력합니다', src: innovation}
     ]
     return (
         <section className="container px-4 py-16 m-auto md:px-12">
@@ -29,11 +33,12 @@ export default function Service() {
                                     className="group relative bg-white transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
                                     key={index}>
                                     <div className="relative space-y-8 py-12 p-8">
-                                        <Image src={`/img/main/service/${item.src}`}
+                                        <Image src={item.src}
                                                className="w-16"
                                                width="512"
                                                height="512"
                                                alt={item.name}
+                                               sizes={100}
                                                unoptimized={false}
                                         />
                                         <div className="space-y-2">

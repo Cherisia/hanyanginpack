@@ -1,7 +1,7 @@
 import Banner from "@/components/about/Banner";
 import MainSection from "@/components/about/MainSection";
 import Facilities from "@/components/about/Facilities";
-import Service from "@/components/main/Service";
+import Service from "@/components/about/Service";
 
 export default function About() {
     return (
