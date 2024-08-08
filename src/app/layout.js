@@ -10,6 +10,12 @@ export const metadata = {
         icon: "/logo/favicon.svg"
     },
     robots: 'index, follow',
+    verification: {
+        google: 'aXCiY6cDF-f8_quw5slnXSE7mxw7ZADv6lDIkHjwVys',
+        other: {
+            'naver-site-verification': '422597a33a8455eed284756aa3a7fafdff6cd64d',
+        },
+    },
     openGraph: {
         title: '한양인팩 | 포장박스제작 전문',
         description: '고객이 원하는 최적의 패키지상자를 만들어 드립니다.',
@@ -39,8 +45,6 @@ export const metadata = {
 export default function RootLayout({children}) {
     return (
         <html lang="ko">
-        <meta name="naver-site-verification" content="422597a33a8455eed284756aa3a7fafdff6cd64d" />
-        <meta name="google-site-verification" content="aXCiY6cDF-f8_quw5slnXSE7mxw7ZADv6lDIkHjwVys" />
         <body>
         <Navbar/>
         {children}
