@@ -57,7 +57,7 @@ export default function Accordion() {
                                             </svg>
                                         </span>
                                     </summary>
-                                    <p className="font-normal text-neutral-600 mt-7 group-open:animate-fadeIn whitespace-pre-line">
+                                    <p className="font-normal text-neutral-600 bg-gray-200 p-4 mt-7 group-open:animate-fadeIn whitespace-pre-line">
                                         {item.answer}
                                     </p>
                                 </details>
@@ -65,7 +65,6 @@ export default function Accordion() {
                         )
                     })
                 }
-
             </div>
         </div>
 

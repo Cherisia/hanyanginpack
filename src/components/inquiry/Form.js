@@ -178,7 +178,7 @@ export default function Form() {
                                         />
                                         <label htmlFor={box.number} className="relative w-28 h-28 select-none cursor-pointer flex items-center justify-center border-2 border-gray-100
             transition-colors duration-200 peer-checked:border-cyan-600">
-                                            <Image className="p-2" src={box.image} placeholder="blur" alt={box.name}
+                                            <Image className="p-2" src={box.image} placeholder="blur" alt={box.name} sizes={100}
                                                    fill/>
                                             <span className="tooltip-text text-[0.6rem]">{box.name}</span>
                                         </label>
