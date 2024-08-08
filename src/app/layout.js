@@ -39,6 +39,7 @@ export const metadata = {
 export default function RootLayout({children}) {
     return (
         <html lang="ko">
+        <meta name="naver-site-verification" content="422597a33a8455eed284756aa3a7fafdff6cd64d" />
         <body>
         <Navbar/>
         {children}
