@@ -40,6 +40,7 @@ export default function RootLayout({children}) {
     return (
         <html lang="ko">
         <meta name="naver-site-verification" content="422597a33a8455eed284756aa3a7fafdff6cd64d" />
+        <meta name="google-site-verification" content="aXCiY6cDF-f8_quw5slnXSE7mxw7ZADv6lDIkHjwVys" />
         <body>
         <Navbar/>
         {children}
