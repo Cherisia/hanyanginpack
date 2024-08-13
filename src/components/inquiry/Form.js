@@ -261,6 +261,38 @@ export default function Form() {
                         }}/><span>{errors.description.message}</span></>}
                     </div>
                 </div>
+                <div>
+                    <span className="mb-2 text-sm font-medium text-gray-900">개인정보 수집 및 이용 동의<span
+                        className="text-red-700 ml-1">*</span></span>
+                    <div className="scrollbar mt-1 h-28 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full p-2.5 overflow-auto">
+                        한양인팩은 개인정보 보호법 등 관련 법령상의 규정을 준수하며 귀하의 개인정보 보호에 최선을 다하고 있습니다.<br/>
+                        개인정보 보호법 제 15조 및 같은 법 제 22조에 근거하여, 다음과 같이 견적문의 고객 확인을 위하여 개인정보를 수집, 이용하는데 동의를 받고자 합니다.<br/>
+                        <br/>
+                        <strong>1. 개인정보 수집 목적</strong><br/>
+                        한양인팩은 견적문의 고객 확인을 위한 목적으로 귀하의 개인정보를 수집, 이용하고 있습니다.<br/>
+                        <br/>
+                        <strong>2. 수집하는 개인정보의 항목</strong><br/>
+                        한양인팩 견적문의 서비스 제공을 위하여 필요한 최소한의 범위 내에서 아래와 같은 개인정보를 수집하고 있습니다.<br/>
+                        - 회사명, 담당자명, 연락처, 이메일, 주문지역<br/>
+                        <br/>
+                        <strong>3. 개인정보 보유 및 이용 기간</strong><br/>
+                        한양인팩은 의뢰자의 개인정보 삭제 요청이 아닌 경우 개인정보 보유 기간 10년 후 보유 정보를 파기합니다.<br/>
+                    </div>
+                    <div className="mt-3">
+                        <label className="inline-flex items-center text-base font-medium text-gray-900 cursor-pointer">
+                            <input className="mr-2 w-4 h-4 accent-blue-500" type="checkbox"
+                                {...register("privacy", {
+                                    required: '개인정보 수집 및 이용에 동의해주세요!'
+                                })}/> 개인정보 수집 및 이용에 동의합니다.
+                        </label>
+                    </div>
+                    <div className="flex items-center mt-1 mb-4 h-6 w-full text-red-600 text-xs">
+                        {errors.privacy && <><RiErrorWarningFill style={{
+                            display: 'inline',
+                            marginRight: '0.15rem'
+                        }}/><span>{errors.privacy.message}</span></>}
+                    </div>
+                </div>
                 <button type="submit"
                         className="w-full text-white bg-sky-400 hover:bg-sky-500 disabled:bg-sky-700 font-medium rounded-lg text-base px-5 py-3.5 text-center" disabled={disabled}>
                     <svg width="20" height="20" fill="currentColor" className={"mr-4 animate-spin " + ( disabled ? "inline" : "hidden" )}

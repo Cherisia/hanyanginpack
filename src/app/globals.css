@@ -45,6 +45,22 @@ body {
     display: none;
 }
 
+.scrollbar::-webkit-scrollbar{
+    display: inherit;
+    width: 0.7rem;
+    border-radius: 10px;
+
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(146, 203, 224);
+    border-radius: 10px;
+}
+.scrollbar::-webkit-scrollbar-track {
+    height: 80%;
+    background: rgb(230, 233, 235);
+    border-radius: 20px;
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;
