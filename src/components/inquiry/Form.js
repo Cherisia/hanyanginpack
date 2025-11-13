@@ -24,62 +24,73 @@ export default function Form() {
             confirmButtonText: "등록",
             cancelButtonText: "닫기"
         }).then((result) => {
-            if (result.isConfirmed) {
-                fetch('/api/inquiry', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                }).then(r => {
-                    return r.json();
-                }).then(data => {
-                    if (data === "OK") {
-                        // success
-                        Sweetalert2.fire({
-                            html: `<div>등록이 완료되었습니다.</div><div>최대한 빠르게 연락드리겠습니다! 😊😊</div>`,
-                            icon: "success",
-                            confirmButtonColor: "rgb(251 113 133)",
-                            confirmButtonText: "닫기",
-                        }).then(() => {
-                            setDisabled(false);
-                            router.refresh();
-                        });
-                    } else {
-                        // fail
-                        let text;
-                        if (data.indexOf("is null") > -1) {
-                            text = `<div>입력하지 않은 내용이 있습니다.</div><div>다시 입력해주세요.</div>`
-                        } else if (data.indexOf("is too long") > -1) {
-                            text = `<div>입력하신 내용이 너무 깁니다.</div><div>다시 입력해주세요.</div>`
-                        } else if (data.indexOf("is invalid") > -1) {
-                            text = `<div>유효하지않은 ${data.substring(0, data.indexOf("is invalid"))} 형식입니다.</div><div>다시 입력해주세요.</div>`
-                        } else {
-                            text = `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`
-                        }
-                        Sweetalert2.fire({
-                            html: `${text}`,
-                            icon: "error",
-                            confirmButtonColor: "rgb(251 113 133)",
-                            confirmButtonText: "닫기",
-                        }).then(() => {
-                            setDisabled(false);
-                        });
-                    }
-                }).catch(e => {
-                    // fetch error
-                    Sweetalert2.fire({
-                        html: `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`,
-                        icon: "error",
-                        confirmButtonColor: "rgb(251 113 133)",
-                        confirmButtonText: "닫기",
-                    }).then(() => {
-                        setDisabled(false);
-                    });
-                });
-            } else {
+            // 현재 기능 off
+            Sweetalert2.fire({
+                html: `<div>현재 문의량이 많아 온라인 문의는 받지않고 있습니다.</div><div>고객센터(031-997-9021)로 문의 주시면 최대한 빠르게 도와드리겠습니다. 😊😊</div>`,
+                icon: "success",
+                confirmButtonColor: "rgb(251 113 133)",
+                confirmButtonText: "닫기",
+            }).then(() => {
                 setDisabled(false);
-            }
+                router.refresh();
+            });
+            //
+            // if (result.isConfirmed) {
+            //     fetch('/api/inquiry', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(data)
+            //     }).then(r => {
+            //         return r.json();
+            //     }).then(data => {
+            //         if (data === "OK") {
+            //             // success
+            //             Sweetalert2.fire({
+            //                 html: `<div>등록이 완료되었습니다.</div><div>최대한 빠르게 연락드리겠습니다! 😊😊</div>`,
+            //                 icon: "success",
+            //                 confirmButtonColor: "rgb(251 113 133)",
+            //                 confirmButtonText: "닫기",
+            //             }).then(() => {
+            //                 setDisabled(false);
+            //                 router.refresh();
+            //             });
+            //         } else {
+            //             // fail
+            //             let text;
+            //             if (data.indexOf("is null") > -1) {
+            //                 text = `<div>입력하지 않은 내용이 있습니다.</div><div>다시 입력해주세요.</div>`
+            //             } else if (data.indexOf("is too long") > -1) {
+            //                 text = `<div>입력하신 내용이 너무 깁니다.</div><div>다시 입력해주세요.</div>`
+            //             } else if (data.indexOf("is invalid") > -1) {
+            //                 text = `<div>유효하지않은 ${data.substring(0, data.indexOf("is invalid"))} 형식입니다.</div><div>다시 입력해주세요.</div>`
+            //             } else {
+            //                 text = `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`
+            //             }
+            //             Sweetalert2.fire({
+            //                 html: `${text}`,
+            //                 icon: "error",
+            //                 confirmButtonColor: "rgb(251 113 133)",
+            //                 confirmButtonText: "닫기",
+            //             }).then(() => {
+            //                 setDisabled(false);
+            //             });
+            //         }
+            //     }).catch(e => {
+            //         // fetch error
+            //         Sweetalert2.fire({
+            //             html: `<div>죄송합니다.</div><div>서버 이슈로 등록에 실패했습니다.</div><div>고객센터로 전화 혹은 메일 부탁드립니다.</div>`,
+            //             icon: "error",
+            //             confirmButtonColor: "rgb(251 113 133)",
+            //             confirmButtonText: "닫기",
+            //         }).then(() => {
+            //             setDisabled(false);
+            //         });
+            //     });
+            // } else {
+            //     setDisabled(false);
+            // }
         });
     }
     const onError = error => console.log('error : ' + error);
