@@ -11,7 +11,7 @@ export default function Map() {
         kakaoMapScript.async = false
         kakaoMapScript.src = '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + NEXT_PUBLIC_KAKAO_APP_KEY
         document.head.appendChild(kakaoMapScript)
-
+        
         const onLoadKakaoApi = () => {
             window.kakao.maps.load(() => {
                 // 지도 객체 생성

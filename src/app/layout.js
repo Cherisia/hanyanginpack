@@ -3,13 +3,21 @@ import KakaoChatButton from "@/components/share/KakaoChatButton";
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/share/Footer";
 
+const BASE_URL = 'https://hanyanginpack.com';
+
 export const metadata = {
-    title: "패키지상자 포장박스제작 | 한양인팩",
-    description: "포장박스제작 전문업체. 체계적인 원스톱 시스템으로 고객이 원하는 최적의 패키지상자를 만들어 드립니다.",
+    metadataBase: new URL(BASE_URL),
+    title: {
+        template: '%s | 한양인팩',
+        default: '패키지상자·포장박스 제작 전문 | 한양인팩',
+    },
+    description: '1999년 설립, 25년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템으로 합리적인 가격에 최고 품질의 패키지를 제공합니다.',
+    keywords: ['포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스', '제품포장', '한양인팩', '김포 박스제작', '원스톱 패키지'],
     icons: {
         icon: "/logo/favicon.svg"
     },
-    robots: 'index, follow',
+    robots: { index: true, follow: true },
+    alternates: { canonical: BASE_URL },
     verification: {
         google: 'aXCiY6cDF-f8_quw5slnXSE7mxw7ZADv6lDIkHjwVys',
         other: {
@@ -17,28 +25,26 @@ export const metadata = {
         },
     },
     openGraph: {
-        title: '한양인팩 | 포장박스제작 전문',
-        description: '고객이 원하는 최적의 패키지상자를 만들어 드립니다.',
+        title: '패키지상자·포장박스 제작 전문 | 한양인팩',
+        description: '1999년 설립, 25년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
         type: 'website',
-        url: 'https://hanyanginpack.com',
+        url: BASE_URL,
         siteName: '한양인팩',
         locale: 'ko_KR',
         images: [
             {
-                url: 'https://hanyanginpack.com/img/logo/logo.jpg',
+                url: '/img/logo/logo.jpg',
                 width: 800,
                 height: 600,
-                alt: 'hanyanginpack logo',
+                alt: '한양인팩 포장박스 제작 전문',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        site: '@hanyanginpack',
-        creator: '@hanyanginpack',
-        title: '한양인팩 | 포장박스제작 전문',
-        description: '고객이 원하는 최적의 패키지상자를 만들어 드립니다.',
-        image: 'https://hanyanginpack.com/img/logo/logo.jpg',
+        title: '패키지상자·포장박스 제작 전문 | 한양인팩',
+        description: '1999년 설립, 25년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
+        images: ['/img/logo/logo.jpg'],
     },
 };
 
