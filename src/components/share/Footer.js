@@ -1,31 +1,82 @@
+import Link from "next/link";
 import Logo from "/public/logo/logo.svg";
 
 export default function Footer() {
     return (
-        <footer className="relative top-[4.5rem] bg-zinc-700">
-            <div className="flex flex-wrap container max-md:px-10 md:px-10 xl:px-52 max-sm:py-6 py-12 mx-auto text-sm text-gray-300 space-y-0.5 max-md:space-y-4">
-                <div className="basis-full sm:mb-2">
-                    <Logo width={120} height={40} fill={"white"}/>
+        <footer className="bg-gray-900 text-gray-400">
+            <div className="bg-sky-500 py-12">
+                <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <p className="text-sky-200 text-xs font-bold uppercase tracking-widest mb-1">Get Started</p>
+                        <p className="text-white text-2xl font-black font-nanumEB break-keep">
+                            포장박스 견적, 지금 바로 받아보세요
+                        </p>
+                    </div>
+                    <Link
+                        href="/inquiry"
+                        className="shrink-0 bg-white text-sky-600 font-black text-sm px-7 py-3.5 rounded-2xl hover:bg-sky-50 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                    >
+                        무료 견적 문의하기 →
+                    </Link>
                 </div>
-                <div className="w-7/12 max-md:w-full">
-                    <p className="space-x-6"><span>회사명 : 한양인팩</span><span>대표 : 윤도상</span></p>
-                    <p>경기도 김포시 승가로76번길 29</p>
-                    <p>사업자등록번호 : 122-03-17423</p>
-                    <p>이메일 : manager@hanyanginpack.com</p>
-                    <p className="sm:space-x-6"><span className="max-sm:block">팩스 : 031-997-8348</span><span>개인정보관리책임자 : 윤희찬</span></p>
+            </div>
+
+            <div className="max-w-6xl mx-auto px-6 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+                    <div>
+                        <Logo width={110} height={36} fill="white" />
+                        <p className="text-xs text-gray-500 leading-relaxed mt-4">
+                            1999년 설립 · 포장박스·패키지상자 제작 전문<br />
+                            설계부터 납품까지 원스톱 시스템
+                        </p>
+                        <div className="flex gap-2 mt-4">
+                            <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">26년 경력</span>
+                            <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">원스톱</span>
+                            <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">맞춤 제작</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-black text-gray-300 uppercase tracking-widest mb-4">Company</p>
+                        <ul className="space-y-1.5 text-xs text-gray-500">
+                            <li>회사명 : 한양인팩 &nbsp;·&nbsp; 대표 : 윤도상</li>
+                            <li>경기도 김포시 승가로76번길 29</li>
+                            <li>사업자등록번호 : 122-03-17423</li>
+                            <li>이메일 : manager@hanyanginpack.com</li>
+                            <li>팩스 : 031-997-8348</li>
+                            <li className="pt-1">개인정보관리책임자 : 윤희찬</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-black text-gray-300 uppercase tracking-widest mb-4">Customer Center</p>
+                        <a
+                            href="tel:0319979021"
+                            className="text-3xl font-black text-white tracking-tight hover:text-indigo-300 transition-colors"
+                        >
+                            031-997-9021
+                        </a>
+                        <p className="text-xs text-gray-500 mt-2">평일 09:00 ~ 18:00</p>
+                        <p className="text-xs text-gray-600">토·일·공휴일 휴무</p>
+                        <div className="mt-4">
+                            <p className="text-xs text-gray-600">입금계좌</p>
+                            <p className="text-xs text-gray-500 mt-1">농협 241020-51-038249 윤도상 (한양인팩)</p>
+                        </div>
+                        <div className="flex gap-3 mt-5">
+                            <Link href="/faq" className="text-xs text-gray-500 hover:text-white transition-colors">자주 묻는 질문</Link>
+                            <span className="text-gray-700">·</span>
+                            <Link href="/contact" className="text-xs text-gray-500 hover:text-white transition-colors">오시는길</Link>
+                            <span className="text-gray-700">·</span>
+                            <Link href="/inquiry" className="text-xs text-gray-500 hover:text-white transition-colors">견적문의</Link>
+                        </div>
+                    </div>
                 </div>
-                <div className="w-5/12 max-md:w-full">
-                    <p className="font-bold">고객센터</p>
-                    <p className="max-sm:text-3xl text-4xl font-black tracking-tight">
-                        <a href="tel:0319979021" className="hover:text-white transition-colors">031-997-9021</a>
-                    </p>
-                    <p>평일 9:00 ~ 18:00 (토,일,공휴일 휴무)</p>
-                    <p className="break-keep">입금계좌 : 농협 241020-51-038249 윤도상 (한양인팩)</p>
-                </div>
-                <div className="basis-full">
-                    <p className="text-xs text-gray-400 break-keep">Copyright ⓒ 2024 hanyanginpack.com All rights reserved</p>
+
+                <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-2">
+                    <p className="text-xs text-gray-600">Copyright ⓒ 2025 hanyanginpack.com All rights reserved</p>
+                    <p className="text-xs text-gray-700">Designed with ♥ by 한양인팩</p>
                 </div>
             </div>
         </footer>
-    )
+    );
 }

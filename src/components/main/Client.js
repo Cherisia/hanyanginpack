@@ -1,78 +1,52 @@
-'use client'
-
 import Image from "next/image";
-import React, {useRef} from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import client1 from "/public/img/main/client/삼성.jpg";
+import client2 from "/public/img/main/client/대상.png";
+import client3 from "/public/img/main/client/유닉스전자.jpg";
+import client4 from "/public/img/main/client/효성인터내셔널.jpg";
+import client5 from "/public/img/main/client/에이스전자.png";
+import client6 from "/public/img/main/client/맥스타산업.png";
+import client7 from "/public/img/main/client/에이치엠텍.webp";
+import client8 from "/public/img/main/client/매크로통상.jpg";
 
-import client1 from "/public/img/main/client/삼성.jpg"
-import client2 from "/public/img/main/client/대상.png"
-import client3 from "/public/img/main/client/유닉스전자.jpg"
-import client4 from "/public/img/main/client/효성인터내셔널.jpg"
-import client5 from "/public/img/main/client/다인인터내셔널.jpeg"
-import client6 from "/public/img/main/client/에이스전자.png"
-import client7 from "/public/img/main/client/맥스타산업.png"
-import client8 from "/public/img/main/client/에이치엠텍.webp"
-import client9 from "/public/img/main/client/매크로통상.jpg"
+const clients = [
+    { name: '삼성', img: client1 },
+    { name: '대상', img: client2 },
+    { name: '유닉스전자', img: client3 },
+    { name: '효성인터내셔널', img: client4 },
+    { name: '에이스전자', img: client5 },
+    { name: '맥스타산업', img: client6 },
+    { name: '에이치엠텍', img: client7 },
+    { name: '매크로통상', img: client8 },
+];
 
 export default function Client() {
-    const title = ['한양인팩', '과 함께 해주신 회사'];
-    const subTitle = 'Clients'
-    const clients = [
-        {name: '삼성', img: client1},
-        {name: '대상', img: client2},
-        {name: '유닉스전자', img: client3},
-        {name: '효성인터내셔널', img: client4},
-        {name: '다인인터내셔널', img: client5},
-        {name: '에이스전자', img: client6},
-        {name: '맥스타산업', img: client7},
-        {name: '에이치엠텍', img: client8},
-        {name: '매크로통상', img: client9},
-    ];
-    const settings = {
-        arrows: false,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        infinite: true,
-        draggable: false,
-        speed: 3000,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 640,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-        ]
-    };
     return (
-        <section className="container px-4 py-16 m-auto md:px-12 text-center">
-            <h2><span className="text-4xl text-gray-700 hy-underline">{title[0]}</span><span
-                className="text-2xl text-gray-600">{title[1]}</span></h2>
-            <p className="text-2xl text-gray-400 mt-4 mb-8 tracking-widest">{subTitle}</p>
-            <div className="slider-container w-full xl:w-3/4 border-y-2 border-gray-100 m-auto">
-                <Slider className="h-24" {...settings}>
-                    {
-                        clients.map((item, index) => {
-                            return (
-                                <div className="relative w-1/3 h-24 outline-none" key={index}>
-                                    <Image className="object-contain px-10 py-8 lg:px-14 lg:py-8" src={item.img}
-                                           alt={item.name} sizes={100} fill/>
-                                </div>
-                            )
-                        })
-                    }
-                </Slider>
+        <section className="bg-white py-16 border-t border-gray-100">
+            <div className="max-w-6xl mx-auto px-6 mb-10 text-center">
+                <p className="text-xs font-bold text-gray-400 tracking-widest uppercase mb-2">Our Clients</p>
+                <h2 className="text-2xl font-black text-gray-900 font-nanumEB">
+                    한양인팩과 함께해 주신 <span className="text-indigo-600">고객사</span>
+                </h2>
+            </div>
+            {/* CSS marquee — react-slick 제거 */}
+            <div className="overflow-hidden">
+                <div className="ticker-track">
+                    {[...clients, ...clients].map((c, i) => (
+                        <div
+                            key={i}
+                            className="relative w-36 h-16 mx-6 shrink-0 flex items-center justify-center"
+                        >
+                            <Image
+                                src={c.img}
+                                alt={`${c.name} 고객사`}
+                                fill
+                                className="object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                                sizes="144px"
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
-    )
+    );
 }

@@ -95,6 +95,43 @@ body {
     opacity: 1;
 }
 
+/* ── Ticker marquee ── */
+@keyframes ticker-slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.ticker-track {
+    animation: ticker-slide 28s linear infinite;
+    display: flex;
+    width: max-content;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+/* ── Scroll reveal ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+.reveal-d5 { transition-delay: 0.40s; }
+.reveal-d6 { transition-delay: 0.48s; }
+
+/* ── hy-underline ── */
+.hy-underline {
+    text-decoration: underline;
+    text-decoration-color: rgb(6 182 212);
+    text-underline-offset: 4px;
+}
+
 .info-title {
     display: flex;
     align-items: center;

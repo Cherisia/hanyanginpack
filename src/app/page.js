@@ -1,17 +1,18 @@
 import Hero from "@/components/main/Hero";
+import Services from "@/components/main/Services";
+import WhyUs from "@/components/main/WhyUs";
 import Client from "@/components/main/Client";
-import Visions from "@/components/main/Visions";
 
 const BASE_URL = 'https://hanyanginpack.com';
 
 export const metadata = {
     title: '패키지상자·포장박스 제작 전문 | 한양인팩',
-    description: '1999년 설립, 25년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템. 골판지박스·인쇄박스·선물박스·맞춤 패키지 제작.',
+    description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템. 골판지박스·인쇄박스·선물박스·맞춤 패키지 제작.',
     keywords: ['포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스제작', '제품포장', '한양인팩', '김포박스', '맞춤박스'],
     alternates: { canonical: BASE_URL },
     openGraph: {
         title: '패키지상자·포장박스 제작 전문 | 한양인팩',
-        description: '1999년 설립, 25년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
+        description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
         url: BASE_URL,
         type: 'website',
     },
@@ -55,11 +56,12 @@ const jsonLd = {
 
 export default function Home() {
     return (
-        <div>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>
-            <Hero/>
-            <Visions/>
-            <Client/>
-        </div>
-    )
+        <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+            <Hero />
+            <Services />
+            <WhyUs />
+            <Client />
+        </>
+    );
 }
