@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function Inquiry() {
     return (
-        <div className="w-full top-[4.5rem] relative bg-gray-50 pb-10">
+        <div className="w-full bg-gray-50 pb-10">
             <Banner/>
             <MainSection/>
             <Form/>

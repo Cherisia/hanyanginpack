@@ -1,4 +1,5 @@
 import Hero from "@/components/main/Hero";
+import Stats from "@/components/main/Stats";
 import Services from "@/components/main/Services";
 import WhyUs from "@/components/main/WhyUs";
 import Client from "@/components/main/Client";
@@ -59,6 +60,7 @@ export default function Home() {
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
             <Hero />
+            <Stats />
             <Services />
             <WhyUs />
             <Client />

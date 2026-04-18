@@ -4,23 +4,6 @@ import Logo from "/public/logo/logo.svg";
 export default function Footer() {
     return (
         <footer className="bg-gray-900 text-gray-400">
-            <div className="bg-sky-500 py-12">
-                <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div>
-                        <p className="text-sky-200 text-xs font-bold uppercase tracking-widest mb-1">Get Started</p>
-                        <p className="text-white text-2xl font-black font-nanumEB break-keep">
-                            포장박스 견적, 지금 바로 받아보세요
-                        </p>
-                    </div>
-                    <Link
-                        href="/inquiry"
-                        className="shrink-0 bg-white text-sky-600 font-black text-sm px-7 py-3.5 rounded-2xl hover:bg-sky-50 transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                    >
-                        무료 견적 문의하기 →
-                    </Link>
-                </div>
-            </div>
-
             <div className="max-w-6xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
                     <div>

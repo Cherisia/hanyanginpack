@@ -171,10 +171,10 @@ export default function Services() {
     const activeIdx = hoverIdx !== null ? hoverIdx : autoIdx;
 
     return (
-        <section ref={sectionRef} className="bg-white py-20">
+        <section ref={sectionRef} className="bg-gray-50 py-20">
             <div className="max-w-6xl mx-auto px-6">
                 <div className="text-center mb-12 reveal">
-                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500 text-white text-sm font-black mb-4">1</div>
+                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500 text-white text-sm font-black mb-4">2</div>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3 font-nanumEB break-keep">
                         설계부터 납품까지,{' '}
                         <span className="text-sky-600">원스톱 제작 시스템</span>

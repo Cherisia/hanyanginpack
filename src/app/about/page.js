@@ -38,7 +38,7 @@ const jsonLd = {
 
 export default function About() {
     return (
-        <div className="w-full top-[4.5rem] relative bg-gray-50 pb-10">
+        <div className="w-full bg-gray-50 pb-10">
             <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}/>
             <Banner/>
             <MainSection/>

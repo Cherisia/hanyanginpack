@@ -116,10 +116,10 @@ export default function WhyUs() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="bg-gray-50 py-24">
+        <section ref={sectionRef} className="bg-white py-24">
             <div className="max-w-6xl mx-auto px-6">
                 <div className="text-center mb-20 reveal">
-                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500 text-white text-sm font-black mb-4">2</div>
+                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500 text-white text-sm font-black mb-4">3</div>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 font-nanumEB break-keep">
                         한양인팩이{' '}
                         <span className="text-sky-500">특별한 이유</span>
