@@ -25,7 +25,7 @@ export default function Client() {
             <div className="max-w-6xl mx-auto px-6 mb-10 text-center">
                 <p className="text-xs font-bold text-gray-400 tracking-widest uppercase mb-2">Our Clients</p>
                 <h2 className="text-2xl font-black text-gray-900 font-nanumEB">
-                    한양인팩과 함께해 주신 <span className="text-indigo-600">고객사</span>
+                    한양인팩과 함께해 주신 <span className="text-sky-600">고객사</span>
                 </h2>
             </div>
             {/* CSS marquee — react-slick 제거 */}
