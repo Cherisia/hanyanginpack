@@ -57,7 +57,7 @@ export default function Footer() {
 
                 <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-2">
                     <p className="text-xs text-gray-600">Copyright ⓒ 2025 hanyanginpack.com All rights reserved</p>
-                    <p className="text-xs text-gray-700">Designed with ♥ by 한양인팩</p>
+                    <p className="text-xs text-gray-700">Designed by ♥ 한양인팩</p>
                 </div>
             </div>
         </footer>
