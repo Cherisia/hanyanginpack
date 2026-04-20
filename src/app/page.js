@@ -2,6 +2,7 @@ import Hero from "@/components/main/Hero";
 import Stats from "@/components/main/Stats";
 import Services from "@/components/main/Services";
 import WhyUs from "@/components/main/WhyUs";
+import Process from "@/components/main/Process";
 import Client from "@/components/main/Client";
 
 const BASE_URL = 'https://hanyanginpack.com';
@@ -63,6 +64,7 @@ export default function Home() {
             <Stats />
             <Services />
             <WhyUs />
+            <Process />
             <Client />
         </>
     );
