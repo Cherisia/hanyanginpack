@@ -29,7 +29,7 @@ export default function Stats() {
         <section ref={sectionRef} className="bg-white py-14 border-b border-gray-100">
             <div className="max-w-3xl mx-auto px-6">
                 <div className="text-center mb-12 reveal">
-                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500 text-white text-sm font-black mb-4">1</div>
+                    <p className="text-xs font-bold text-sky-500 uppercase tracking-[0.2em] mb-3">By The Numbers</p>
                     <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-3 font-nanumEB break-keep">
                         26년이 쌓은 신뢰,{' '}
                         <span className="text-sky-600">숫자가 증명합니다</span>
