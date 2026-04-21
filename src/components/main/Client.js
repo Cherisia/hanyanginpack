@@ -1,4 +1,7 @@
+'use client'
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import client1 from "/public/img/main/client/삼성.jpg";
 import client2 from "/public/img/main/client/대상.png";
 import client3 from "/public/img/main/client/유닉스전자.jpg";
@@ -20,16 +23,30 @@ const clients = [
 ];
 
 export default function Client() {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach((e) => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+            }),
+            { threshold: 0.15 }
+        );
+        section.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <section className="bg-white py-16 border-t border-gray-100">
-            <div className="max-w-6xl mx-auto px-6 mb-10 text-center">
+        <section ref={sectionRef} className="bg-white py-16 border-t border-gray-100">
+            <div className="max-w-6xl mx-auto px-6 mb-10 text-center reveal">
                 <p className="text-xs font-bold text-gray-400 tracking-widest uppercase mb-2">Our Clients</p>
                 <h2 className="text-2xl font-black text-gray-900 font-nanumEB">
                     한양인팩과 함께해 주신 <span className="text-sky-600">고객사</span>
                 </h2>
             </div>
-            {/* CSS marquee — react-slick 제거 */}
-            <div className="overflow-hidden">
+            <div className="overflow-hidden reveal reveal-d2">
                 <div className="ticker-track">
                     {[...clients, ...clients].map((c, i) => (
                         <div
