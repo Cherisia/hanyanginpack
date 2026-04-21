@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className="bg-gray-900 text-gray-400">
             <div className="max-w-6xl mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 pb-10 border-b border-white/10">
                     <div>
                         <Logo width={110} height={36} fill="white" />
                         <p className="text-xs text-gray-500 leading-relaxed mt-4">
@@ -35,7 +35,7 @@ export default function Footer() {
                         <p className="text-xs font-black text-gray-300 uppercase tracking-widest mb-4">Customer Center</p>
                         <a
                             href="tel:0319979021"
-                            className="text-3xl font-black text-white tracking-tight hover:text-indigo-300 transition-colors"
+                            className="text-2xl md:text-3xl font-black text-white tracking-tight hover:text-sky-300 transition-colors"
                         >
                             031-997-9021
                         </a>

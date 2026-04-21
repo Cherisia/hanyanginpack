@@ -51,7 +51,7 @@ export default function Client() {
                     {[...clients, ...clients].map((c, i) => (
                         <div
                             key={i}
-                            className="relative w-36 h-16 mx-6 shrink-0 flex items-center justify-center"
+                            className="relative w-28 h-12 md:w-36 md:h-16 mx-3 md:mx-6 shrink-0 flex items-center justify-center"
                         >
                             <Image
                                 src={c.img}

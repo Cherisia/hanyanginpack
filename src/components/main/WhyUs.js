@@ -130,7 +130,7 @@ export default function WhyUs() {
                     {features.map((f, i) => (
                         <div
                             key={i}
-                            className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center reveal"
+                            className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center reveal"
                         >
                             <div className={`relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-200 ${f.reversed ? 'md:order-last' : ''}`}>
                                 <Image

@@ -16,7 +16,7 @@ export default function Hero() {
             {/* 어두운 오버레이 — 인디고 톤 */}
             <div className="absolute inset-0 bg-black/55" />
 
-            <div className="relative max-w-6xl mx-auto px-6 py-24 w-full">
+            <div className="relative max-w-6xl mx-auto px-6 py-14 md:py-24 w-full">
                 <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">
                     Package Box Manufacturing
                 </p>

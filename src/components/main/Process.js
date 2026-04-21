@@ -95,22 +95,24 @@ export default function Process() {
                 </div>
 
                 {/* 모바일 */}
-                <div className="md:hidden space-y-6">
+                <div className="md:hidden space-y-0">
                     {steps.map((s, i) => (
                         <div key={i} className={`reveal reveal-d${i + 1} flex gap-5 items-start`}>
-                            <div className="relative shrink-0 w-12 h-12 rounded-xl bg-white border-2 border-sky-100 flex items-center justify-center text-sky-500 shadow-sm">
-                                {s.icon}
-                                <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-sky-500 text-white text-[9px] font-black flex items-center justify-center">
-                                    {i + 1}
-                                </span>
+                            <div className="flex flex-col items-center shrink-0">
+                                <div className="relative w-12 h-12 rounded-xl bg-white border-2 border-sky-100 flex items-center justify-center text-sky-500 shadow-sm">
+                                    {s.icon}
+                                    <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-sky-500 text-white text-[9px] font-black flex items-center justify-center">
+                                        {i + 1}
+                                    </span>
+                                </div>
+                                {i < steps.length - 1 && (
+                                    <div className="w-px h-8 bg-sky-100 my-1" />
+                                )}
                             </div>
-                            <div className="pt-1">
+                            <div className="pt-1 pb-6">
                                 <p className="text-sm font-black text-gray-900 mb-1">{s.title}</p>
                                 <p className="text-xs text-gray-400 leading-relaxed">{s.desc}</p>
                             </div>
-                            {i < steps.length - 1 && (
-                                <div className="absolute left-6 mt-14 w-px h-6 bg-sky-100" />
-                            )}
                         </div>
                     ))}
                 </div>
