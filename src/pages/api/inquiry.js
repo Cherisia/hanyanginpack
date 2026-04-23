@@ -8,40 +8,29 @@ import {
 export default async function inquiry(req, resp) {
     if (req.method === 'POST') {
         try {
-            // validate parameter
-            let form = ['company', 'name', 'contact', 'email', 'box', 'quantity', 'region', 'description'];
-            form.forEach((param) => {
-                switch (param) {
-                    case 'company' :
-                    case 'name' :
-                    case 'box' :
-                    case 'quantity' :
-                    case 'region' :
-                    case 'contact' :
-                    case 'email' :
-                        if (req.body[param] === null || req.body[param].trim().length === 0) {
-                            return resp.status(400).json(param + ' is null');
-                        }
-                        if (req.body[param].length > 30) {
-                            return resp.status(400).json(param + ' is too long');
-                        }
-                        if (param === 'contact') {
-                            const contactRegex = /^([0-9]{3,4})-?([0-9]{3,4})-?([0-9]{3,4})$/;
-                            if (!contactRegex.test(req.body[param])) {
-                                return resp.status(400).json(param + ' is invalid');
-                            }
-                        }
-                        if (param === 'email') {
-                            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-                            if (!emailRegex.test(req.body[param])) {
-                                return resp.status(400).json(param + ' is invalid');
-                            }
-                        }
-                        break;
-                    default :
-                        break;
+            // validate parameter (required fields)
+            const required = ['company', 'name', 'contact', 'email', 'quantity', 'region'];
+            for (const param of required) {
+                const val = req.body[param];
+                if (val === null || val === undefined || val.trim().length === 0) {
+                    return resp.status(400).json(param + ' is null');
                 }
-            });
+                if (val.length > 30) {
+                    return resp.status(400).json(param + ' is too long');
+                }
+                if (param === 'contact') {
+                    const contactRegex = /^([0-9]{3,4})-?([0-9]{3,4})-?([0-9]{3,4})$/;
+                    if (!contactRegex.test(val)) {
+                        return resp.status(400).json(param + ' is invalid');
+                    }
+                }
+                if (param === 'email') {
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                    if (!emailRegex.test(val)) {
+                        return resp.status(400).json(param + ' is invalid');
+                    }
+                }
+            }
 
             const params = [
                 req.body.company,
@@ -55,7 +44,7 @@ export default async function inquiry(req, resp) {
             ];
 
             // DB에 문의 저장
-            const query = 'INSERT INTO inquiry (`company`, `name`, `contact`, `email`, `box`, `quantity`, `region`, `description`) VALUES (?,?,?,?,?,?,?,?)';
+            const query = 'INSERT INTO inquiry (company, name, contact, email, box, quantity, region, description) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)';
             const result = await executeQuery(query, params);
 
             // 이메일 데이터 준비

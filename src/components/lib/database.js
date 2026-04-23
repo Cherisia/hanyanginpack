@@ -1,27 +1,19 @@
-import mysql from 'mysql2/promise';
+import { neon } from '@neondatabase/serverless';
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    connectionLimit: 20,
-    maxIdle: 20,
-});
+const sql = neon(process.env.DATABASE_URL);
 
-const executeQuery = async (query, params) => {
-    let conn;
+/**
+ * @param {string} query - SQL 쿼리 (파라미터는 $1, $2 ... 형식)
+ * @param {Array} params - 파라미터 배열
+ */
+const executeQuery = async (query, params = []) => {
     try {
-        conn = await pool.getConnection();
-        const [result, fields] = await conn.execute(query, params);
-        return [result, fields];
+        const result = await sql.query(query, params);
+        return result;
     } catch (e) {
-        console.log("Error in executeQuery : " + e);
+        console.error('Error in executeQuery:', e);
         throw e;
-    } finally {
-        if (conn) conn.release();
     }
-}
+};
 
-module.exports = {executeQuery};
+module.exports = { executeQuery };
