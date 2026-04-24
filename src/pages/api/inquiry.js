@@ -32,6 +32,8 @@ export default async function inquiry(req, resp) {
                 }
             }
 
+            const imageUrls = Array.isArray(req.body.imageUrls) ? req.body.imageUrls.slice(0, 5) : [];
+
             const params = [
                 req.body.company,
                 req.body.name,
@@ -42,10 +44,11 @@ export default async function inquiry(req, resp) {
                 req.body.region,
                 req.body.description,
                 req.body.industry || null,
+                imageUrls.length > 0 ? imageUrls : null,
             ];
 
             // DB에 문의 저장
-            const query = 'INSERT INTO inquiry (company, name, contact, email, box, quantity, region, description, industry) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
+            const query = 'INSERT INTO inquiry (company, name, contact, email, box, quantity, region, description, industry, image_urls) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)';
             const result = await executeQuery(query, params);
 
             // 이메일 데이터 준비
@@ -59,20 +62,29 @@ export default async function inquiry(req, resp) {
                 region: req.body.region,
                 description: req.body.description,
                 industry: req.body.industry || null,
+                imageUrls,
             };
 
-            // 고객에게 접수 확인 이메일 발송
+            // 이미지 첨부 파일 준비 (Cloudinary 압축 변환 URL 사용)
+            const attachments = imageUrls.map((url, i) => ({
+                filename: `image_${i + 1}.jpg`,
+                path: url.replace('/upload/', '/upload/q_70,w_1200,f_jpg/'),
+            }));
+
+            // 고객에게 접수 확인 이메일 발송 (이미지 첨부)
             const customerEmailResult = await sendEmail({
                 to: req.body.email,
                 subject: '[한양인팩] 문의가 접수되었습니다',
                 html: getCustomerInquiryEmailTemplate(emailData),
+                attachments,
             });
 
-            // 관리자에게 신규 문의 알림 이메일 발송
+            // 관리자에게 신규 문의 알림 이메일 발송 (이미지 첨부)
             const adminEmailResult = await sendEmail({
                 to: process.env.ADMIN_EMAIL,
                 subject: '[한양인팩] 신규 문의 접수 알림',
                 html: getAdminInquiryEmailTemplate(emailData),
+                attachments,
             });
 
             // 이메일 전송 실패해도 문의는 접수된 것으로 처리

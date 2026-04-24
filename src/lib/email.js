@@ -3,14 +3,18 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // 이메일 전송 함수
-export async function sendEmail({ to, subject, html }) {
+export async function sendEmail({ to, subject, html, attachments = [] }) {
     try {
-        const { data, error } = await resend.emails.send({
+        const payload = {
             from: process.env.RESEND_FROM_EMAIL,
             to,
             subject,
             html,
-        });
+        };
+        if (attachments.length > 0) {
+            payload.attachments = attachments;
+        }
+        const { data, error } = await resend.emails.send(payload);
 
         if (error) {
             console.error('Email sending failed:', error);
@@ -74,6 +78,10 @@ export function getCustomerInquiryEmailTemplate(data) {
                             <td>${data.email}</td>
                         </tr>
                         <tr>
+                            <th>제품 업종</th>
+                            <td>${data.industry || '미선택'}</td>
+                        </tr>
+                        <tr>
                             <th>박스 종류</th>
                             <td>${data.box || '미선택'}</td>
                         </tr>
@@ -89,6 +97,11 @@ export function getCustomerInquiryEmailTemplate(data) {
                             <th>상세 내용</th>
                             <td>${data.description || '없음'}</td>
                         </tr>
+                        ${data.imageUrls && data.imageUrls.length > 0 ? `
+                        <tr>
+                            <th>첨부 이미지</th>
+                            <td>${data.imageUrls.length}개 첨부 (이메일에 포함됨)</td>
+                        </tr>` : ''}
                     </table>
 
                     <p>영업일 기준 <span class="highlight">1~2일 내</span>로 회신 드리겠습니다.</p>
@@ -159,6 +172,10 @@ export function getAdminInquiryEmailTemplate(data) {
                             <td>${data.email}</td>
                         </tr>
                         <tr>
+                            <th>제품 업종</th>
+                            <td>${data.industry || '미선택'}</td>
+                        </tr>
+                        <tr>
                             <th>박스 종류</th>
                             <td>${data.box || '미선택'}</td>
                         </tr>
@@ -174,6 +191,13 @@ export function getAdminInquiryEmailTemplate(data) {
                             <th>상세 내용</th>
                             <td>${data.description || '없음'}</td>
                         </tr>
+                        ${data.imageUrls && data.imageUrls.length > 0 ? `
+                        <tr>
+                            <th>첨부 이미지</th>
+                            <td>${data.imageUrls.map((url, i) =>
+                                `<a href="${url}" target="_blank" style="color:#dc2626;">이미지 ${i + 1}</a>`
+                            ).join(' &nbsp; ')}</td>
+                        </tr>` : ''}
                     </table>
 
                     <p style="color: #dc2626; font-weight: bold;">

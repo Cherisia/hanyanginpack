@@ -8,6 +8,11 @@ import { BiCustomize } from "react-icons/bi";
 import { useState, useRef, useCallback } from "react";
 import { toast } from "sonner";
 
+const MAX_FILES = 5;
+const MAX_SIZE_MB = 5;
+// image/* 전체 허용 + PDF
+const isAllowedType = (f) => f.type.startsWith('image/') || f.type === 'application/pdf';
+
 const INDUSTRIES = [
     '식품·음료',
     '화장품·뷰티',
@@ -66,6 +71,143 @@ export default function Form() {
     const [isConfirming, setIsConfirming] = useState(false);
     const confirmToastId = useRef(null);
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    // 이미지 업로드 상태
+    // items: [{ file, previewUrl, status: 'pending'|'uploading'|'done'|'error', cloudUrl }]
+    const [imageItems, setImageItems] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef(null);
+    const dragCounterRef = useRef(0); // 자식 요소 진입/이탈 오작동 방지
+
+    // 공통 업로드 처리 함수 (파일 선택 & 드래그앤드랍 공용)
+    const uploadFiles = useCallback(async (files) => {
+        const remaining = MAX_FILES - imageItems.length;
+        if (remaining <= 0) return;
+        const toAdd = Array.from(files).slice(0, remaining);
+
+        // 유효성 검사
+        const valid = toAdd.filter(f => {
+            if (!isAllowedType(f)) {
+                toast.custom(() => (
+                    <div style={{ ...TOAST_CARD, border: '2px solid #f87171' }}>
+                        <p style={{ fontWeight: '800', fontSize: '14px', color: '#111', margin: 0 }}>지원하지 않는 파일 형식입니다</p>
+                        <p style={{ color: '#6b7280', fontSize: '12px', margin: '6px 0 0' }}>이미지 파일(JPG·PNG·BMP 등) 또는 PDF만 첨부 가능합니다</p>
+                    </div>
+                ), { duration: 3000 });
+                return false;
+            }
+            if (f.size > MAX_SIZE_MB * 1024 * 1024) {
+                toast.custom(() => (
+                    <div style={{ ...TOAST_CARD, border: '2px solid #f87171' }}>
+                        <p style={{ fontWeight: '800', fontSize: '14px', color: '#111', margin: 0 }}>파일 크기가 초과되었습니다</p>
+                        <p style={{ color: '#6b7280', fontSize: '12px', margin: '6px 0 0' }}>파일당 최대 {MAX_SIZE_MB}MB까지 첨부 가능합니다</p>
+                    </div>
+                ), { duration: 3000 });
+                return false;
+            }
+            return true;
+        });
+        if (!valid.length) return;
+
+        const newItems = valid.map(file => ({
+            file,
+            previewUrl: file.type.startsWith('image/') ? URL.createObjectURL(file) : null,
+            status: 'pending',
+            cloudUrl: null,
+        }));
+        setImageItems(prev => [...prev, ...newItems]);
+
+        // Cloudinary 서명 요청
+        let sigData;
+        try {
+            const sigRes = await fetch('/api/upload-signature', { method: 'POST' });
+            sigData = await sigRes.json();
+            if (sigData.error) {
+                console.error('[upload] 서명 발급 실패:', sigData.error);
+                setImageItems(prev => prev.map((item, idx) =>
+                    idx >= prev.length - newItems.length ? { ...item, status: 'error' } : item
+                ));
+                return;
+            }
+        } catch (e) {
+            console.error('[upload] 서명 요청 오류:', e);
+            setImageItems(prev => prev.map((item, idx) =>
+                idx >= prev.length - newItems.length ? { ...item, status: 'error' } : item
+            ));
+            return;
+        }
+
+        setImageItems(prev => prev.map((item, idx) =>
+            idx >= prev.length - newItems.length ? { ...item, status: 'uploading' } : item
+        ));
+
+        const startIdx = imageItems.length;
+        await Promise.all(newItems.map(async (item, i) => {
+            const formData = new FormData();
+            formData.append('file', item.file);
+            formData.append('api_key', sigData.apiKey);
+            formData.append('timestamp', sigData.timestamp);
+            formData.append('signature', sigData.signature);
+            formData.append('folder', sigData.folder);
+            try {
+                const res = await fetch(
+                    `https://api.cloudinary.com/v1_1/${sigData.cloudName}/auto/upload`,
+                    { method: 'POST', body: formData }
+                );
+                const data = await res.json();
+                if (!data.secure_url) {
+                    console.error(`[upload] Cloudinary 업로드 실패 (${item.file.name}):`, data);
+                }
+                setImageItems(prev => prev.map((it, idx) =>
+                    idx === startIdx + i
+                        ? { ...it, status: data.secure_url ? 'done' : 'error', cloudUrl: data.secure_url || null }
+                        : it
+                ));
+            } catch {
+                setImageItems(prev => prev.map((it, idx) =>
+                    idx === startIdx + i ? { ...it, status: 'error' } : it
+                ));
+            }
+        }));
+
+        if (fileInputRef.current) fileInputRef.current.value = '';
+    }, [imageItems]);
+
+    const handleFileChange = useCallback((e) => {
+        uploadFiles(e.target.files);
+    }, [uploadFiles]);
+
+    // 드래그앤드랍 핸들러
+    const handleDragEnter = useCallback((e) => {
+        e.preventDefault();
+        dragCounterRef.current += 1;
+        setIsDragging(true);
+    }, []);
+
+    const handleDragLeave = useCallback((e) => {
+        e.preventDefault();
+        dragCounterRef.current -= 1;
+        if (dragCounterRef.current === 0) setIsDragging(false);
+    }, []);
+
+    const handleDragOver = useCallback((e) => {
+        e.preventDefault();
+    }, []);
+
+    const handleDrop = useCallback((e) => {
+        e.preventDefault();
+        dragCounterRef.current = 0;
+        setIsDragging(false);
+        uploadFiles(e.dataTransfer.files);
+    }, [uploadFiles]);
+
+    const removeImage = useCallback((idx) => {
+        setImageItems(prev => {
+            const item = prev[idx];
+            if (item?.previewUrl) URL.revokeObjectURL(item.previewUrl);
+            return prev.filter((_, i) => i !== idx);
+        });
+    }, []);
 
     const closeConfirm = useCallback(() => {
         if (confirmToastId.current !== null) {
@@ -126,6 +268,21 @@ export default function Form() {
     };
 
     const onSubmit = (data) => {
+        // 업로드 중인 파일이 있으면 잠시 대기 안내
+        if (imageItems.some(item => item.status === 'uploading')) {
+            toast.custom(() => (
+                <div style={{ ...TOAST_CARD, border: '2px solid #0ea5e9' }}>
+                    <p style={{ fontWeight: '800', fontSize: '14px', color: '#111', margin: 0 }}>이미지 업로드 중입니다</p>
+                    <p style={{ color: '#6b7280', fontSize: '12px', margin: '6px 0 0' }}>잠시 후 다시 시도해주세요.</p>
+                </div>
+            ), { duration: 2500 });
+            return;
+        }
+        // 업로드 완료된 URL만 포함
+        const imageUrls = imageItems
+            .filter(item => item.status === 'done' && item.cloudUrl)
+            .map(item => item.cloudUrl);
+        data.imageUrls = imageUrls;
         setDisabled(true);
         setIsConfirming(true);
         const id = toast.custom((t) => (
@@ -352,9 +509,136 @@ export default function Form() {
                                 </div>
                             </div>
 
-                            {/* 섹션 4: 기타 문의사항 */}
+                            {/* 섹션 4: 참고 이미지 */}
                             <div className="p-8 border-b border-gray-100">
-                                <SectionHeader num="4" title="기타 문의사항" />
+                                <SectionHeader num="4" title="참고 이미지" />
+                                <p className="text-xs text-gray-400 mb-4 break-keep">
+                                    브랜드 로고, 디자인 시안, 참고 이미지 등을 첨부해 주시면 더 정확한 견적을 드릴 수 있습니다.
+                                    <span className="ml-1 text-gray-400">(선택 · 최대 {MAX_FILES}개 · 파일당 {MAX_SIZE_MB}MB · 이미지·PDF)</span>
+                                </p>
+
+                                {/* 업로드 영역 (드래그앤드랍 + 클릭) */}
+                                {imageItems.length < MAX_FILES && (
+                                    <div
+                                        onDragEnter={handleDragEnter}
+                                        onDragLeave={handleDragLeave}
+                                        onDragOver={handleDragOver}
+                                        onDrop={handleDrop}
+                                        onClick={() => fileInputRef.current?.click()}
+                                        className={`flex flex-col items-center justify-center w-full h-36 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 mb-4 select-none
+                                            ${isDragging
+                                                ? 'border-sky-400 bg-sky-50 scale-[1.01]'
+                                                : 'border-gray-200 hover:border-sky-300 hover:bg-sky-50'
+                                            }`}
+                                    >
+                                        <svg
+                                            className={`w-8 h-8 mb-2 transition-colors duration-200 ${isDragging ? 'text-sky-400' : 'text-gray-300'}`}
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        {isDragging ? (
+                                            <p className="text-sm font-bold text-sky-500">여기에 놓으세요</p>
+                                        ) : (
+                                            <>
+                                                <p className="text-xs text-gray-400">
+                                                    클릭하거나 파일을 끌어다 놓으세요
+                                                </p>
+                                                <p className="text-xs text-gray-300 mt-1">
+                                                    {imageItems.length}/{MAX_FILES} · 이미지·PDF · 파일당 최대 {MAX_SIZE_MB}MB
+                                                </p>
+                                            </>
+                                        )}
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*,.pdf"
+                                            multiple
+                                            className="hidden"
+                                            onChange={handleFileChange}
+                                        />
+                                    </div>
+                                )}
+
+                                {/* 첨부 파일 목록 */}
+                                {imageItems.length > 0 && (
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                                        {imageItems.map((item, idx) => (
+                                            <div key={idx} className="relative group rounded-xl overflow-hidden border border-gray-100 bg-gray-50 aspect-square flex items-center justify-center">
+                                                {/* 미리보기 */}
+                                                {item.previewUrl ? (
+                                                    <img src={item.previewUrl} alt={`첨부 ${idx + 1}`} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="flex flex-col items-center justify-center gap-1">
+                                                        <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                        <span className="text-[10px] text-gray-400 px-1 truncate w-full text-center">{item.file.name}</span>
+                                                    </div>
+                                                )}
+
+                                                {/* 상태 오버레이 */}
+                                                {item.status === 'uploading' && (
+                                                    <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                                                        <svg className="w-6 h-6 text-sky-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                                                        </svg>
+                                                    </div>
+                                                )}
+                                                {item.status === 'done' && (
+                                                    <div className="absolute top-1.5 left-1.5 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </div>
+                                                )}
+                                                {item.status === 'error' && (
+                                                    <div className="absolute inset-0 bg-red-50/80 flex items-center justify-center">
+                                                        <span className="text-[10px] text-red-400 font-bold">업로드 실패</span>
+                                                    </div>
+                                                )}
+
+                                                {/* 삭제 버튼 */}
+                                                {item.status !== 'uploading' && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeImage(idx)}
+                                                        className="absolute top-1 right-1 w-5 h-5 bg-gray-800/60 hover:bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+
+                                        {/* 추가 버튼 (파일 목록 옆) */}
+                                        {imageItems.length < MAX_FILES && (
+                                            <label
+                                                htmlFor="image-upload-more"
+                                                className="border-2 border-dashed border-gray-200 rounded-xl aspect-square flex flex-col items-center justify-center cursor-pointer hover:border-sky-300 hover:bg-sky-50 transition-all duration-200"
+                                            >
+                                                <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                                </svg>
+                                                <span className="text-[10px] text-gray-300 mt-1">{imageItems.length}/{MAX_FILES}</span>
+                                                <input
+                                                    id="image-upload-more"
+                                                    type="file"
+                                                    accept="image/*,.pdf"
+                                                    multiple
+                                                    className="hidden"
+                                                    onChange={handleFileChange}
+                                                />
+                                            </label>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* 섹션 5: 기타 문의사항 */}
+                            <div className="p-8 border-b border-gray-100">
+                                <SectionHeader num="5" title="기타 문의사항" />
                                 <div>
                                     <label htmlFor="description" className="block text-xs font-bold text-gray-600 mb-1.5">
                                         문의 내용 <span className="text-gray-400 font-medium">(선택)</span>
@@ -373,9 +657,9 @@ export default function Form() {
                                 </div>
                             </div>
 
-                            {/* 섹션 5: 개인정보 동의 */}
+                            {/* 섹션 6: 개인정보 동의 */}
                             <div className="p-8">
-                                <SectionHeader num="5" title="개인정보 수집 및 이용 동의" />
+                                <SectionHeader num="6" title="개인정보 수집 및 이용 동의" />
                                 <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 h-32 overflow-y-auto text-xs text-gray-500 leading-relaxed mb-4">
                                     한양인팩은 개인정보 보호법 등 관련 법령상의 규정을 준수하며 귀하의 개인정보 보호에 최선을 다하고 있습니다.<br />
                                     개인정보 보호법 제 15조 및 같은 법 제 22조에 근거하여, 다음과 같이 견적문의 고객 확인을 위하여 개인정보를 수집, 이용하는데 동의를 받고자 합니다.<br /><br />
