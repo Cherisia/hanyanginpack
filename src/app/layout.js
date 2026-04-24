@@ -2,6 +2,7 @@ import "./globals.css";
 import KakaoChatButton from "@/components/share/KakaoChatButton";
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/share/Footer";
+import {Toaster} from "sonner";
 
 const BASE_URL = 'https://hanyanginpack.com';
 
@@ -56,6 +57,7 @@ export default function RootLayout({children}) {
         {children}
         <KakaoChatButton/>
         <Footer/>
+        <Toaster richColors position="top-center" />
         </body>
         </html>
     );
