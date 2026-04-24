@@ -8,6 +8,19 @@ import { BiCustomize } from "react-icons/bi";
 import { useState, useRef, useCallback } from "react";
 import { toast } from "sonner";
 
+const INDUSTRIES = [
+    '식품·음료',
+    '화장품·뷰티',
+    '의약·헬스케어',
+    '의류·패션·잡화',
+    '전자·IT기기',
+    '농수산물·식재료',
+    '생활용품·홈케어',
+    '선물·기념품',
+    '교육·문구·완구',
+    '기타',
+];
+
 // 공통 토스트 카드 스타일
 const TOAST_CARD = {
     background: '#fff',
@@ -18,13 +31,42 @@ const TOAST_CARD = {
     fontFamily: 'NanumSquareR, sans-serif',
 };
 
+// 섹션 헤더
+function SectionHeader({ num, title }) {
+    return (
+        <div className="flex items-center gap-3 mb-6">
+            <span className="w-6 h-6 rounded-full bg-sky-500 text-white text-xs font-black flex items-center justify-center shrink-0">
+                {num}
+            </span>
+            <h3 className="text-sm font-black text-gray-800">{title}</h3>
+        </div>
+    );
+}
+
+// 입력 필드 래퍼
+function FieldError({ error }) {
+    if (!error) return <div className="h-5 mt-1" />;
+    return (
+        <div className="flex items-center gap-1 mt-1 h-5 text-red-500 text-xs">
+            <RiErrorWarningFill className="shrink-0" />
+            <span>{error.message}</span>
+        </div>
+    );
+}
+
+const inputClass = (hasError) =>
+    `w-full px-4 py-3 text-sm text-gray-900 bg-white border rounded-xl outline-none transition-all duration-150 placeholder:text-gray-300 ${
+        hasError
+            ? 'border-red-300 focus:border-red-400 focus:ring-2 focus:ring-red-100'
+            : 'border-gray-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-100'
+    }`;
+
 export default function Form() {
     const [disabled, setDisabled] = useState(false);
     const [isConfirming, setIsConfirming] = useState(false);
     const confirmToastId = useRef(null);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // 확인 토스트 닫기 (취소 버튼 / ✕ / 외부 클릭 공통)
     const closeConfirm = useCallback(() => {
         if (confirmToastId.current !== null) {
             toast.dismiss(confirmToastId.current);
@@ -34,7 +76,6 @@ export default function Form() {
         setDisabled(false);
     }, []);
 
-    // 성공 토스트 — 2초 표시 후 페이지 새로고침
     const showSuccessToast = () => {
         toast.custom(() => (
             <div style={{ ...TOAST_CARD, border: '2px solid #16a34a' }}>
@@ -50,7 +91,6 @@ export default function Form() {
         setTimeout(() => window.location.reload(), 2000);
     };
 
-    // 에러 토스트
     const showErrorToast = (text) => {
         toast.custom(() => (
             <div style={{ ...TOAST_CARD, border: '2px solid #f87171' }}>
@@ -58,14 +98,11 @@ export default function Form() {
                     <RiErrorWarningFill style={{ color: '#f87171', fontSize: '20px', flexShrink: 0 }} />
                     <span style={{ fontWeight: '800', fontSize: '15px', color: '#111' }}>등록에 실패했습니다</span>
                 </div>
-                <p style={{ color: '#6b7280', fontSize: '13px', lineHeight: '1.6', margin: 0 }}>
-                    {text}
-                </p>
+                <p style={{ color: '#6b7280', fontSize: '13px', lineHeight: '1.6', margin: 0 }}>{text}</p>
             </div>
         ), { duration: 4000 });
     };
 
-    // 확인 후 API 호출
     const submitInquiry = (data) => {
         fetch('/api/inquiry', {
             method: 'POST',
@@ -75,7 +112,7 @@ export default function Form() {
             .then(r => r.json())
             .then(res => {
                 if (res?.message === 'OK') {
-                    showSuccessToast(); // 성공: 토스트 + 2초 후 새로고침
+                    showSuccessToast();
                 } else {
                     showErrorToast('서버 오류가 발생했습니다. 고객센터로 전화 또는 메일 부탁드립니다.');
                     setDisabled(false);
@@ -88,30 +125,23 @@ export default function Form() {
             });
     };
 
-    // react-hook-form 검증 통과 → 확인 토스트 표시
     const onSubmit = (data) => {
         setDisabled(true);
         setIsConfirming(true);
         const id = toast.custom((t) => (
-            <div style={{ ...TOAST_CARD, border: '2px solid #4b5563' }}>
+            <div style={{ ...TOAST_CARD, border: '2px solid #0ea5e9' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <RiErrorWarningFill style={{ color: '#111', fontSize: '20px', flexShrink: 0 }} />
+                        <RiErrorWarningFill style={{ color: '#0ea5e9', fontSize: '20px', flexShrink: 0 }} />
                         <span style={{ fontWeight: '800', fontSize: '15px', color: '#111' }}>문의를 등록하시겠어요?</span>
                     </div>
-                    <button
-                        onClick={closeConfirm}
-                        style={{ color: '#9ca3af', fontSize: '16px', background: 'none', border: 'none', cursor: 'pointer', padding: '0 0 0 8px', lineHeight: 1, flexShrink: 0 }}
-                    >✕</button>
+                    <button onClick={closeConfirm} style={{ color: '#9ca3af', fontSize: '16px', background: 'none', border: 'none', cursor: 'pointer', padding: '0 0 0 8px', lineHeight: 1, flexShrink: 0 }}>✕</button>
                 </div>
                 <p style={{ color: '#6b7280', fontSize: '13px', lineHeight: '1.6', marginBottom: '18px' }}>
                     입력하신 내용으로 접수됩니다.
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-                    <button
-                        onClick={closeConfirm}
-                        style={{ padding: '8px 18px', fontSize: '13px', fontWeight: '700', border: '1.5px solid #d1d5db', borderRadius: '8px', background: '#fff', color: '#374151', cursor: 'pointer' }}
-                    >취소</button>
+                    <button onClick={closeConfirm} style={{ padding: '8px 18px', fontSize: '13px', fontWeight: '700', border: '1.5px solid #d1d5db', borderRadius: '8px', background: '#fff', color: '#374151', cursor: 'pointer' }}>취소</button>
                     <button
                         onClick={() => {
                             toast.dismiss(t);
@@ -119,7 +149,7 @@ export default function Form() {
                             setIsConfirming(false);
                             submitInquiry(data);
                         }}
-                        style={{ padding: '8px 18px', fontSize: '13px', fontWeight: '700', borderRadius: '8px', background: '#111', color: '#fff', border: 'none', cursor: 'pointer' }}
+                        style={{ padding: '8px 18px', fontSize: '13px', fontWeight: '700', borderRadius: '8px', background: '#0ea5e9', color: '#fff', border: 'none', cursor: 'pointer' }}
                     >등록하기</button>
                 </div>
             </div>
@@ -127,200 +157,280 @@ export default function Form() {
         confirmToastId.current = id;
     };
 
-    // react-hook-form 검증 실패 → 인라인 에러로 표시되므로 별도 처리 없음
     const onError = () => {};
 
     return (
         <>
             {isConfirming && (
-                <div
-                    onClick={closeConfirm}
-                    style={{ position: 'fixed', inset: 0, zIndex: 999999998, cursor: 'default' }}
-                />
+                <div onClick={closeConfirm} style={{ position: 'fixed', inset: 0, zIndex: 999999998, cursor: 'default' }} />
             )}
-            <div className="container xl:w-7/12 md:w-8/12 max-md:w-11/12 mx-auto">
-                <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-2">
-                    <div>
-                        <label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-900">
-                            회사명 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="company"
-                               {...register("company", {
-                                   required: '회사명은 필수 입력 항목입니다!',
-                                   maxLength: { value: 30, message: '회사명을 30자 이내로 간략하게 적어주세요!' },
-                                   validate: value => value.trim().length === 0 ? '공백이에요!' : null,
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="회사명" autoComplete="organization"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.company && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.company.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">
-                            담당자명 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="name"
-                               {...register("name", {
-                                   required: '담당자명은 필수 입력 항목입니다!',
-                                   maxLength: { value: 30, message: '담당자명을 30자 이내로 간략하게 적어주세요!' },
-                                   validate: value => value.trim().length === 0 ? '공백이에요!' : null,
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="담당자명" autoComplete="name"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.name && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.name.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="contact" className="block mb-2 text-sm font-medium text-gray-900">
-                            연락처 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="contact"
-                               {...register("contact", {
-                                   required: '연락처는 필수 입력 항목입니다!',
-                                   pattern: {
-                                       value: /^([0-9]{3,4})-?([0-9]{3,4})-?([0-9]{3,4})$/,
-                                       message: '연락처 형식이 유효하지 않아요!',
-                                   },
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="ex) 010-0000-0000" autoComplete="tel-national"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.contact && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.contact.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
-                            이메일 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="email"
-                               {...register("email", {
-                                   required: '이메일은 필수 입력 항목입니다!',
-                                   pattern: {
-                                       value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
-                                       message: '이메일 형식이 유효하지 않아요!',
-                                   },
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="ex) abc@naver.com" autoComplete="email"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.email && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.email.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <div className="block mb-2 text-sm font-medium text-gray-900">박스형태</div>
-                        <div className="flex flex-wrap">
-                            {Boxes.map((box, index) => (
-                                <div className="tooltip relative box-border w-28 h-28 m-0.5" key={index}>
-                                    <input type="radio" id={box.number} className="hidden peer"
-                                           {...register("box")} value={box.name}/>
-                                    <label htmlFor={box.number} className="relative w-28 h-28 select-none cursor-pointer flex items-center justify-center border-2 border-gray-100 transition-colors duration-200 peer-checked:border-cyan-600">
-                                        <Image className="p-2" src={box.image} placeholder="blur" alt={box.name} sizes={100} fill/>
-                                        <span className="tooltip-text text-[0.6rem]">{box.name}</span>
-                                    </label>
+
+            <section className="bg-gray-50 py-10 pb-20">
+                <div className="max-w-3xl mx-auto px-6">
+                    <form onSubmit={handleSubmit(onSubmit, onError)}>
+                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+                            {/* 섹션 1: 신청자 정보 */}
+                            <div className="p-8 border-b border-gray-100">
+                                <SectionHeader num="1" title="신청자 정보" />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
+                                    <div>
+                                        <label htmlFor="company" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            회사명 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="company" type="text" autoComplete="organization"
+                                            placeholder="회사명을 입력해주세요"
+                                            {...register("company", {
+                                                required: '회사명을 입력해주세요',
+                                                maxLength: { value: 30, message: '30자 이내로 입력해주세요' },
+                                                validate: v => v.trim().length > 0 || '공백만 입력할 수 없습니다',
+                                            })}
+                                            className={inputClass(errors.company)}
+                                        />
+                                        <FieldError error={errors.company} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="name" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            담당자명 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="name" type="text" autoComplete="name"
+                                            placeholder="담당자 성함을 입력해주세요"
+                                            {...register("name", {
+                                                required: '담당자명을 입력해주세요',
+                                                maxLength: { value: 30, message: '30자 이내로 입력해주세요' },
+                                                validate: v => v.trim().length > 0 || '공백만 입력할 수 없습니다',
+                                            })}
+                                            className={inputClass(errors.name)}
+                                        />
+                                        <FieldError error={errors.name} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="contact" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            연락처 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="contact" type="text" autoComplete="tel-national"
+                                            placeholder="010-0000-0000"
+                                            {...register("contact", {
+                                                required: '연락처를 입력해주세요',
+                                                pattern: {
+                                                    value: /^([0-9]{3,4})-?([0-9]{3,4})-?([0-9]{3,4})$/,
+                                                    message: '올바른 연락처 형식이 아닙니다',
+                                                },
+                                            })}
+                                            className={inputClass(errors.contact)}
+                                        />
+                                        <FieldError error={errors.contact} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            이메일 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="email" type="text" autoComplete="email"
+                                            placeholder="abc@naver.com"
+                                            {...register("email", {
+                                                required: '이메일을 입력해주세요',
+                                                pattern: {
+                                                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
+                                                    message: '올바른 이메일 형식이 아닙니다',
+                                                },
+                                            })}
+                                            className={inputClass(errors.email)}
+                                        />
+                                        <FieldError error={errors.email} />
+                                    </div>
                                 </div>
-                            ))}
-                            <div className="tooltip relative box-border w-28 h-28 m-0.5">
-                                <input type="radio" id="custom" className="hidden peer"
-                                       {...register("box")} value="커스텀 박스"/>
-                                <label htmlFor="custom" className="relative w-28 h-28 select-none cursor-pointer flex flex-col items-center justify-center border-2 border-gray-100 transition-colors duration-200 peer-checked:border-cyan-600">
-                                    <BiCustomize style={{ fontSize: '3rem', color: 'gray' }}/>
-                                    <span className="text-gray-500 text-sm mt-2">커스텀 박스</span>
-                                    <span className="tooltip-text text-[0.6rem]">커스텀 박스</span>
+                            </div>
+
+                            {/* 섹션 2: 제품 업종 */}
+                            <div className="p-8 border-b border-gray-100">
+                                <SectionHeader num="2" title="제품 업종" />
+                                <div>
+                                    <label htmlFor="industry" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                        업종 <span className="text-gray-400 font-medium">(선택)</span>
+                                    </label>
+                                    <select
+                                        id="industry"
+                                        {...register("industry")}
+                                        className={`${inputClass(false)} text-gray-500 cursor-pointer`}
+                                        defaultValue=""
+                                    >
+                                        <option value="" disabled>업종을 선택해주세요</option>
+                                        {INDUSTRIES.map((ind) => (
+                                            <option key={ind} value={ind}>{ind}</option>
+                                        ))}
+                                    </select>
+                                    <p className="text-xs text-gray-400 mt-1.5">업종을 알려주시면 더 적합한 패키지를 제안해 드릴 수 있습니다.</p>
+                                </div>
+                            </div>
+
+                            {/* 섹션 3: 박스 사양 */}
+                            <div className="p-8 border-b border-gray-100">
+                                <SectionHeader num="3" title="박스 사양" />
+
+                                {/* 박스 형태 */}
+                                <div className="mb-6">
+                                    <label className="block text-xs font-bold text-gray-600 mb-3">
+                                        박스 형태 <span className="text-gray-400 font-medium">(선택)</span>
+                                    </label>
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {Boxes.map((box) => (
+                                            <div key={box.number} className="relative w-[88px] h-[88px]">
+                                                <input
+                                                    type="radio" id={`box-${box.number}`}
+                                                    className="hidden peer"
+                                                    {...register("box")}
+                                                    value={box.name}
+                                                />
+                                                <label
+                                                    htmlFor={`box-${box.number}`}
+                                                    className="group relative w-[88px] h-[88px] flex flex-col items-center justify-end pb-1 border-2 border-gray-100 rounded-xl cursor-pointer transition-all duration-150 hover:border-sky-300 peer-checked:border-sky-500 peer-checked:bg-sky-50 overflow-hidden"
+                                                    title={box.name}
+                                                >
+                                                    <Image src={box.image} placeholder="blur" alt={box.name} fill sizes="88px" className="object-contain p-2" />
+                                                    <span className="relative z-10 text-[9px] font-bold text-gray-500 peer-checked:text-sky-600 text-center leading-tight px-0.5 truncate w-full text-center">
+                                                        {box.name}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        ))}
+                                        <div className="relative w-[88px] h-[88px]">
+                                            <input
+                                                type="radio" id="box-custom"
+                                                className="hidden peer"
+                                                {...register("box")}
+                                                value="커스텀 박스"
+                                            />
+                                            <label
+                                                htmlFor="box-custom"
+                                                className="w-[88px] h-[88px] flex flex-col items-center justify-center gap-1 border-2 border-gray-100 rounded-xl cursor-pointer transition-all duration-150 hover:border-sky-300 peer-checked:border-sky-500 peer-checked:bg-sky-50"
+                                            >
+                                                <BiCustomize className="text-3xl text-gray-400" />
+                                                <span className="text-[9px] font-bold text-gray-500">커스텀 박스</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 수량 + 주문지역 */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
+                                    <div>
+                                        <label htmlFor="quantity" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            수량 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="quantity" type="text" autoComplete="off"
+                                            placeholder="예) 500개, 1,000개 이상"
+                                            {...register("quantity", {
+                                                required: '수량을 입력해주세요',
+                                                maxLength: { value: 30, message: '30자 이내로 입력해주세요' },
+                                                validate: v => v.trim().length > 0 || '공백만 입력할 수 없습니다',
+                                            })}
+                                            className={inputClass(errors.quantity)}
+                                        />
+                                        <FieldError error={errors.quantity} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="region" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                            납품 지역 <span className="text-red-400">*</span>
+                                        </label>
+                                        <input
+                                            id="region" type="text" autoComplete="address-level2"
+                                            placeholder="예) 서울시 강남구"
+                                            {...register("region", {
+                                                required: '납품 지역을 입력해주세요',
+                                                maxLength: { value: 30, message: '30자 이내로 입력해주세요' },
+                                                validate: v => v.trim().length > 0 || '공백만 입력할 수 없습니다',
+                                            })}
+                                            className={inputClass(errors.region)}
+                                        />
+                                        <FieldError error={errors.region} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* 섹션 4: 기타 문의사항 */}
+                            <div className="p-8 border-b border-gray-100">
+                                <SectionHeader num="4" title="기타 문의사항" />
+                                <div>
+                                    <label htmlFor="description" className="block text-xs font-bold text-gray-600 mb-1.5">
+                                        문의 내용 <span className="text-gray-400 font-medium">(선택)</span>
+                                    </label>
+                                    <textarea
+                                        id="description" rows="4"
+                                        maxLength="300"
+                                        placeholder="사이즈, 소재, 인쇄 방식, 후가공 등 원하시는 사항을 자유롭게 적어주세요."
+                                        {...register("description", {
+                                            maxLength: { value: 300, message: '300자 이내로 입력해주세요' },
+                                        })}
+                                        className={`${inputClass(errors.description)} resize-none`}
+                                        autoComplete="off"
+                                    />
+                                    <FieldError error={errors.description} />
+                                </div>
+                            </div>
+
+                            {/* 섹션 5: 개인정보 동의 */}
+                            <div className="p-8">
+                                <SectionHeader num="5" title="개인정보 수집 및 이용 동의" />
+                                <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 h-32 overflow-y-auto text-xs text-gray-500 leading-relaxed mb-4">
+                                    한양인팩은 개인정보 보호법 등 관련 법령상의 규정을 준수하며 귀하의 개인정보 보호에 최선을 다하고 있습니다.<br />
+                                    개인정보 보호법 제 15조 및 같은 법 제 22조에 근거하여, 다음과 같이 견적문의 고객 확인을 위하여 개인정보를 수집, 이용하는데 동의를 받고자 합니다.<br /><br />
+                                    <strong className="text-gray-700">1. 개인정보 수집 목적</strong><br />
+                                    한양인팩은 견적문의 고객 확인을 위한 목적으로 귀하의 개인정보를 수집, 이용하고 있습니다.<br /><br />
+                                    <strong className="text-gray-700">2. 수집하는 개인정보의 항목</strong><br />
+                                    회사명, 담당자명, 연락처, 이메일, 납품 지역<br /><br />
+                                    <strong className="text-gray-700">3. 개인정보 보유 및 이용 기간</strong><br />
+                                    한양인팩은 의뢰자의 개인정보 삭제 요청이 아닌 경우 개인정보 보유 기간 10년 후 보유 정보를 파기합니다.
+                                </div>
+                                <label className="flex items-center gap-3 cursor-pointer group">
+                                    <input
+                                        type="checkbox"
+                                        className="w-4 h-4 accent-sky-500 cursor-pointer"
+                                        {...register("privacy", {
+                                            required: '개인정보 수집 및 이용에 동의해주세요',
+                                        })}
+                                    />
+                                    <span className="text-sm font-bold text-gray-700">
+                                        개인정보 수집 및 이용에 동의합니다 <span className="text-red-400">*</span>
+                                    </span>
                                 </label>
+                                <FieldError error={errors.privacy} />
                             </div>
                         </div>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.box && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.box.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900">
-                            수량 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="quantity"
-                               {...register("quantity", {
-                                   required: '수량은 필수 입력 항목입니다!',
-                                   maxLength: { value: 30, message: '수량을 30자 이내로 간략하게 적어주세요!' },
-                                   validate: value => value.trim().length === 0 ? '공백이에요!' : null,
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="ex) 1000개 이상" autoComplete="off"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.quantity && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.quantity.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="region" className="block mb-2 text-sm font-medium text-gray-900">
-                            주문지역 <span className="text-red-700">*</span>
-                        </label>
-                        <input type="text" id="region"
-                               {...register("region", {
-                                   required: '주문지역은 필수 입력 항목입니다!',
-                                   maxLength: { value: 30, message: '주문지역을 30자 이내로 간략하게 적어주세요!' },
-                                   validate: value => value.trim().length === 0 ? '공백이에요!' : null,
-                               })}
-                               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                               placeholder="ex) 서울시 강남구 역삼동" autoComplete="address"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.region && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.region.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">기타 문의사항</label>
-                        <textarea id="description" rows="3"
-                                  {...register("description", {
-                                      maxLength: { value: 300, message: '기타 문의사항은 300자 이내로 적어주세요!' },
-                                  })}
-                                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:outline-none focus:border-sky-600 block w-full p-2.5"
-                                  maxLength="300" placeholder="기타 문의사항이 있으시면 작성해주세요." autoComplete="off"/>
-                        <div className="flex items-center mt-1 h-6 w-full text-red-600 text-xs">
-                            {errors.description && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.description.message}</span></>}
-                        </div>
-                    </div>
-                    <div>
-                        <span className="mb-2 text-sm font-medium text-gray-900">
-                            개인정보 수집 및 이용 동의<span className="text-red-700 ml-1">*</span>
-                        </span>
-                        <div className="scrollbar mt-1 h-28 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg w-full p-2.5 overflow-auto">
-                            한양인팩은 개인정보 보호법 등 관련 법령상의 규정을 준수하며 귀하의 개인정보 보호에 최선을 다하고 있습니다.<br/>
-                            개인정보 보호법 제 15조 및 같은 법 제 22조에 근거하여, 다음과 같이 견적문의 고객 확인을 위하여 개인정보를 수집, 이용하는데 동의를 받고자 합니다.<br/>
-                            <br/>
-                            <strong>1. 개인정보 수집 목적</strong><br/>
-                            한양인팩은 견적문의 고객 확인을 위한 목적으로 귀하의 개인정보를 수집, 이용하고 있습니다.<br/>
-                            <br/>
-                            <strong>2. 수집하는 개인정보의 항목</strong><br/>
-                            한양인팩 견적문의 서비스 제공을 위하여 필요한 최소한의 범위 내에서 아래와 같은 개인정보를 수집하고 있습니다.<br/>
-                            - 회사명, 담당자명, 연락처, 이메일, 주문지역<br/>
-                            <br/>
-                            <strong>3. 개인정보 보유 및 이용 기간</strong><br/>
-                            한양인팩은 의뢰자의 개인정보 삭제 요청이 아닌 경우 개인정보 보유 기간 10년 후 보유 정보를 파기합니다.<br/>
-                        </div>
-                        <div className="mt-3">
-                            <label className="inline-flex items-center text-base font-medium text-gray-900 cursor-pointer">
-                                <input className="mr-2 w-4 h-4 accent-blue-500" type="checkbox"
-                                       {...register("privacy", {
-                                           required: '개인정보 수집 및 이용에 동의해주세요!',
-                                       })}/> 개인정보 수집 및 이용에 동의합니다.
-                            </label>
-                        </div>
-                        <div className="flex items-center mt-1 mb-4 h-6 w-full text-red-600 text-xs">
-                            {errors.privacy && <><RiErrorWarningFill style={{ display: 'inline', marginRight: '0.15rem' }}/><span>{errors.privacy.message}</span></>}
-                        </div>
-                    </div>
-                    <button type="submit"
-                            className="w-full text-white bg-sky-400 hover:bg-sky-500 disabled:bg-sky-700 font-medium rounded-lg text-base px-5 py-3.5 text-center"
-                            disabled={disabled}>
-                        <svg width="20" height="20" fill="currentColor"
-                             className={"mr-4 animate-spin " + (disabled ? "inline" : "hidden")}
-                             viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"/>
-                        </svg>
-                        {disabled ? '잠시만 기다려주세요...' : '문의 등록'}
-                    </button>
-                </form>
-            </div>
+
+                        {/* 제출 버튼 */}
+                        <button
+                            type="submit"
+                            disabled={disabled}
+                            className="w-full mt-5 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 disabled:bg-sky-300 text-white font-black text-base px-5 py-4 rounded-2xl transition-all duration-200 hover:shadow-lg hover:shadow-sky-500/30"
+                        >
+                            {disabled ? (
+                                <>
+                                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                                    </svg>
+                                    잠시만 기다려주세요...
+                                </>
+                            ) : (
+                                <>
+                                    견적 문의 등록
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </>
+                            )}
+                        </button>
+                        <p className="text-center text-xs text-gray-400 mt-3">
+                            접수 후 평일 기준 당일 내 담당자가 연락드립니다
+                        </p>
+                    </form>
+                </div>
+            </section>
         </>
     );
 }

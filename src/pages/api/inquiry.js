@@ -41,10 +41,11 @@ export default async function inquiry(req, resp) {
                 req.body.quantity,
                 req.body.region,
                 req.body.description,
+                req.body.industry || null,
             ];
 
             // DB에 문의 저장
-            const query = 'INSERT INTO inquiry (company, name, contact, email, box, quantity, region, description) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)';
+            const query = 'INSERT INTO inquiry (company, name, contact, email, box, quantity, region, description, industry) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)';
             const result = await executeQuery(query, params);
 
             // 이메일 데이터 준비
@@ -57,6 +58,7 @@ export default async function inquiry(req, resp) {
                 quantity: req.body.quantity,
                 region: req.body.region,
                 description: req.body.description,
+                industry: req.body.industry || null,
             };
 
             // 고객에게 접수 확인 이메일 발송
