@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import MainImage from "/public/img/main/hero/main.jpg";
+import MainImage from "/public/img/main/hero/main2.jpg";
 
 export default function Hero() {
     return (
@@ -11,6 +11,8 @@ export default function Hero() {
                 alt="한양인팩 포장박스 제작 공장 메인 이미지"
                 fill
                 priority
+                placeholder="blur"
+                sizes="100vw"
                 className="object-cover"
             />
             {/* 어두운 오버레이 — 인디고 톤 */}

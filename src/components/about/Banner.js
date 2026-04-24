@@ -7,8 +7,8 @@ export default function Banner() {
     const content = '최고의 결과물을 만나보세요!';
     return (
         <div className="relative h-[24rem] mx-auto">
-            <Image className="brightness-[80%] object-cover" src={MainImage} fill={true} placeholder="blur"
-                   alt="한양인팩 견적문의 메인 이미지"/>
+            <Image className="brightness-[80%] object-cover" src={MainImage} fill={true} priority placeholder="blur"
+                   sizes="100vw" alt="한양인팩 회사소개 메인 이미지"/>
             <div
                 className="w-full max-lg:px-8 absolute text-white text-center top-[35%] tracking-tighter space-y-10">
                 <h1 className="font-normal md:font-black tracking-tighter text-5xl font-[nanumB]">

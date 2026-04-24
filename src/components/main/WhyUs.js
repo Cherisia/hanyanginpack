@@ -137,6 +137,7 @@ export default function WhyUs() {
                                     src={f.img}
                                     alt={f.imgAlt}
                                     fill
+                                    placeholder="blur"
                                     className="object-cover"
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
