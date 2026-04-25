@@ -31,6 +31,12 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: 'https://hanyanginpack.com/guide/corrugated',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
             url: 'https://hanyanginpack.com/inquiry',
             lastModified: new Date(),
             changeFrequency: 'weekly',
