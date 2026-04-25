@@ -12,7 +12,6 @@ const GUIDE_MENU = [
 ];
 
 const menu = [
-    { name: '회사소개', url: '/about' },
     { name: '오시는길', url: '/contact' },
     { name: '자주 묻는 질문', url: '/faq' },
     { name: '견적 문의', url: '/inquiry' },
