@@ -45,7 +45,9 @@ export default function Footer() {
                             <p className="text-xs text-gray-600">입금계좌</p>
                             <p className="text-xs text-gray-500 mt-1">농협 241020-51-038249 윤도상 (한양인팩)</p>
                         </div>
-                        <div className="flex gap-3 mt-5">
+                        <div className="flex flex-wrap gap-3 mt-5">
+                            <Link href="/guide" className="text-xs text-gray-500 hover:text-white transition-colors">제작가이드</Link>
+                            <span className="text-gray-700">·</span>
                             <Link href="/faq" className="text-xs text-gray-500 hover:text-white transition-colors">자주 묻는 질문</Link>
                             <span className="text-gray-700">·</span>
                             <Link href="/contact" className="text-xs text-gray-500 hover:text-white transition-colors">오시는길</Link>
