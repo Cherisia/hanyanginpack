@@ -50,6 +50,8 @@ export default function Footer() {
                             <span className="text-gray-700">·</span>
                             <Link href="/guide/corrugated" className="text-xs text-gray-500 hover:text-white transition-colors">골판지 종류</Link>
                             <span className="text-gray-700">·</span>
+                            <Link href="/guide/paper" className="text-xs text-gray-500 hover:text-white transition-colors">종이 종류</Link>
+                            <span className="text-gray-700">·</span>
                             <Link href="/faq" className="text-xs text-gray-500 hover:text-white transition-colors">자주 묻는 질문</Link>
                             <span className="text-gray-700">·</span>
                             <Link href="/contact" className="text-xs text-gray-500 hover:text-white transition-colors">오시는길</Link>

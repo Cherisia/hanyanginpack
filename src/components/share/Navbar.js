@@ -9,6 +9,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 const GUIDE_MENU = [
     { name: '박스 형태', url: '/guide' },
     { name: '골판지 종류', url: '/guide/corrugated' },
+    { name: '종이 종류', url: '/guide/paper' },
 ];
 
 const menu = [

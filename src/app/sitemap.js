@@ -37,6 +37,12 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: 'https://hanyanginpack.com/guide/paper',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
             url: 'https://hanyanginpack.com/inquiry',
             lastModified: new Date(),
             changeFrequency: 'weekly',
