@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { useReveal } from "@/hooks/useReveal";
 
 import box1 from "/public/img/inquiry/box/1.png";
 import box2 from "/public/img/inquiry/box/2.png";
@@ -200,20 +201,7 @@ const BOXES = [
 
 export default function GuideSection() {
     const [activeCategory, setActiveCategory] = useState('all');
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-            }),
-            { threshold: 0.05 }
-        );
-        section.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useReveal();
 
     const filtered = activeCategory === 'all'
         ? BOXES
@@ -266,6 +254,8 @@ export default function GuideSection() {
                                     alt={`한양인팩 ${box.name} 박스 구조 일러스트`}
                                     className="object-contain w-full h-full"
                                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                    placeholder="blur"
+                                    priority={i < 4}
                                 />
                             </div>
 

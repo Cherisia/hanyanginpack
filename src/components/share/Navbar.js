@@ -61,7 +61,7 @@ export default function Navbar() {
                         </button>
 
                         {guideOpen && (
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-36 bg-white border border-gray-100 rounded-2xl shadow-lg py-2 z-50">
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-40 bg-white border border-gray-100 rounded-2xl shadow-lg py-2 z-50">
                                 {GUIDE_MENU.map((g) => (
                                     <Link
                                         key={g.url}

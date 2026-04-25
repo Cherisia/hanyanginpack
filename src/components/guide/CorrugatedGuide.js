@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useReveal } from "@/hooks/useReveal";
+import StarBar from "@/components/guide/StarBar";
 import crossSection from "/public/img/guide/corrugated/cross_section.jpg";
 
 const FLUTES = [
@@ -218,16 +219,6 @@ function FluteIllustration({ waveH, pitchPx }) {
     );
 }
 
-function StarBar({ count, max = 5 }) {
-    return (
-        <div className="flex gap-0.5">
-            {Array.from({ length: max }).map((_, i) => (
-                <div key={i} className={`h-1.5 w-4 rounded-full ${i < count ? 'bg-sky-500' : 'bg-gray-200'}`} />
-            ))}
-        </div>
-    );
-}
-
 /* 구조 SVG 다이어그램 — 고정 컨테이너 높이에 맞게 스케일 */
 function SvgDiagram({ layers }) {
     const lineH = 10;
@@ -264,20 +255,7 @@ function SvgDiagram({ layers }) {
 }
 
 export default function CorrugatedGuide() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-            }),
-            { threshold: 0.05 }
-        );
-        section.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useReveal();
 
     return (
         <section ref={sectionRef} className="bg-gray-50 py-16">

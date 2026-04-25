@@ -1,7 +1,8 @@
 'use client'
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useReveal } from "@/hooks/useReveal";
+import StarBar from "@/components/guide/StarBar";
 
 const CARTON_PAPERS = [
     {
@@ -10,10 +11,10 @@ const CARTON_PAPERS = [
         weight: '200 ~ 500 g/m²',
         swatchColor: '#f0f0ee',
         swatchEdge: '#d0d0cc',
-        swatchLabel: '흰색',
         badge: 'bg-slate-500',
         title: 'text-slate-700',
         card: 'bg-slate-50 border-slate-200',
+        tagClass: 'border-slate-200 text-slate-600',
         print: 4, strength: 3, fold: 5,
         desc: '단상자에 가장 많이 쓰이는 범용 종이입니다. 표면이 희고 매끄러워 인쇄 적성이 우수하며 접힘 가공이 쉽습니다.',
         uses: ['화장품 단상자', '식품 포장', '의약품 박스', '소매 포장'],
@@ -24,10 +25,10 @@ const CARTON_PAPERS = [
         weight: '200 ~ 400 g/m²',
         swatchColor: '#f5ead0',
         swatchEdge: '#e0ce9e',
-        swatchLabel: '아이보리',
         badge: 'bg-amber-500',
         title: 'text-amber-700',
         card: 'bg-amber-50 border-amber-200',
+        tagClass: 'border-amber-200 text-amber-700',
         print: 5, strength: 3, fold: 4,
         desc: '백판지보다 고급 등급의 종이로 순백색 표면에 광택이 있습니다. 인쇄 발색이 뛰어나 고급 패키지에 주로 사용됩니다.',
         uses: ['고급 화장품', '프리미엄 식품', '의류 태그', '명품 패키지'],
@@ -38,10 +39,10 @@ const CARTON_PAPERS = [
         weight: '100 ~ 250 g/m²',
         swatchColor: '#ffffff',
         swatchEdge: '#e8e8e8',
-        swatchLabel: '광택 백색',
         badge: 'bg-sky-500',
         title: 'text-sky-700',
         card: 'bg-sky-50 border-sky-200',
+        tagClass: 'border-sky-200 text-sky-700',
         print: 5, strength: 2, fold: 3,
         desc: '표면에 코팅 처리를 하여 광택이 뛰어난 종이입니다. 인쇄 발색이 최상급으로 고품질 인쇄·후가공용 박스에 사용됩니다.',
         uses: ['고품질 인쇄 박스', '합지 원지', '카탈로그형 포장', '사진 인쇄 박스'],
@@ -52,10 +53,10 @@ const CARTON_PAPERS = [
         weight: '70 ~ 200 g/m²',
         swatchColor: '#c4944a',
         swatchEdge: '#9e7030',
-        swatchLabel: '크라프트 갈색',
         badge: 'bg-orange-700',
         title: 'text-orange-800',
         card: 'bg-orange-50 border-orange-200',
+        tagClass: 'border-orange-200 text-orange-700',
         print: 3, strength: 5, fold: 4,
         desc: '천연 펄프로 만든 갈색 종이로 강도가 높고 친환경 이미지를 줍니다. 쇼핑백·내부 완충재·친환경 포장에 널리 사용됩니다.',
         uses: ['쇼핑백', '친환경 포장', '내부 완충재', '자연·유기농 브랜드'],
@@ -69,7 +70,6 @@ const CORRUGATED_PAPERS = [
         weight: '100 ~ 300 g/m²',
         swatchColor: '#c4944a',
         swatchEdge: '#9e7030',
-        swatchLabel: '크라프트 갈색',
         badge: 'bg-orange-600',
         title: 'text-orange-700',
         card: 'bg-orange-50 border-orange-200',
@@ -83,7 +83,6 @@ const CORRUGATED_PAPERS = [
         weight: '125 ~ 200 g/m²',
         swatchColor: '#f0f0ee',
         swatchEdge: '#d0d0cc',
-        swatchLabel: '흰색',
         badge: 'bg-slate-500',
         title: 'text-slate-700',
         card: 'bg-slate-50 border-slate-200',
@@ -97,7 +96,6 @@ const CORRUGATED_PAPERS = [
         weight: '100 ~ 180 g/m²',
         swatchColor: '#d4aa70',
         swatchEdge: '#b08848',
-        swatchLabel: '중간 갈색',
         badge: 'bg-yellow-700',
         title: 'text-yellow-800',
         card: 'bg-yellow-50 border-yellow-200',
@@ -107,29 +105,21 @@ const CORRUGATED_PAPERS = [
     },
 ];
 
-function StarBar({ count, max = 5, color = 'bg-sky-500' }) {
-    return (
-        <div className="flex gap-0.5">
-            {Array.from({ length: max }).map((_, i) => (
-                <div key={i} className={`h-1.5 w-4 rounded-full ${i < count ? color : 'bg-gray-200'}`} />
-            ))}
-        </div>
-    );
-}
-
-function PaperSwatch({ color, edge, label }) {
+/* 종이 3D 투시 일러스트 — uid로 SVG 내 ID 고유성 보장 */
+function PaperSwatch({ color, edge, uid }) {
     const VW = 200, VH = 110;
     const W = 148, sx = 14, ex = sx + W;
     const PDX = 42, PDY = 26;
     const sheetH = 14;
     const by = 90, ty = by - sheetH;
+    const gradId = `psg${uid}`;
 
     return (
         <svg viewBox={`0 0 ${VW} ${VH}`} className="w-full h-full">
             <defs>
-                <linearGradient id={`ps-${label}`} x1="0" y1="0" x2="1" y2="0">
+                <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor={color} stopOpacity="1" />
-                    <stop offset="100%" stopColor={color} stopOpacity="0.85" />
+                    <stop offset="100%" stopColor={color} stopOpacity="0.82" />
                 </linearGradient>
             </defs>
             {/* Right edge */}
@@ -140,11 +130,11 @@ function PaperSwatch({ color, edge, label }) {
             {/* Top surface */}
             <polygon
                 points={`${sx},${ty} ${ex},${ty} ${ex+PDX},${ty-PDY} ${sx+PDX},${ty-PDY}`}
-                fill={`url(#ps-${label})`} stroke="#33333320" strokeWidth="0.4"
+                fill={`url(#${gradId})`} stroke="#33333320" strokeWidth="0.4"
             />
-            {/* Front face */}
+            {/* Front face (thickness) */}
             <rect x={sx} y={ty} width={W} height={sheetH} fill={edge} stroke="#33333320" strokeWidth="0.4" />
-            {/* Outline */}
+            {/* Back edges */}
             <line x1={sx} y1={ty} x2={sx+PDX} y2={ty-PDY} stroke="#33333325" strokeWidth="0.5" />
             <line x1={sx+PDX} y1={ty-PDY} x2={ex+PDX} y2={ty-PDY} stroke="#33333325" strokeWidth="0.5" />
             <line x1={ex+PDX} y1={ty-PDY} x2={ex+PDX} y2={by-PDY} stroke="#33333325" strokeWidth="0.5" />
@@ -153,20 +143,7 @@ function PaperSwatch({ color, edge, label }) {
 }
 
 export default function PaperGuide() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((e) => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-            }),
-            { threshold: 0.05 }
-        );
-        section.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useReveal();
 
     return (
         <section ref={sectionRef} className="bg-gray-50 py-16">
@@ -192,9 +169,9 @@ export default function PaperGuide() {
                                 className={`reveal border rounded-2xl p-5 md:p-6 ${p.card} hover:shadow-md transition-all duration-300`}
                             >
                                 <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-                                    {/* 종이 스와치 일러스트 */}
+                                    {/* 종이 스와치 일러스트 (데스크톱 우측) */}
                                     <div className="md:order-last md:w-52 shrink-0 h-28 md:h-auto rounded-xl overflow-hidden">
-                                        <PaperSwatch color={p.swatchColor} edge={p.swatchEdge} label={p.name} />
+                                        <PaperSwatch color={p.swatchColor} edge={p.swatchEdge} uid={`c${i}`} />
                                     </div>
 
                                     {/* 종이 이름 */}
@@ -235,7 +212,7 @@ export default function PaperGuide() {
                                         <p className="text-sm text-gray-600 leading-relaxed break-keep mb-3">{p.desc}</p>
                                         <div className="flex flex-wrap gap-1.5">
                                             {p.uses.map((u) => (
-                                                <span key={u} className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${p.card.replace('bg-', 'border-').split(' ')[1]} ${p.title}`}>
+                                                <span key={u} className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${p.tagClass}`}>
                                                     {u}
                                                 </span>
                                             ))}
@@ -270,7 +247,7 @@ export default function PaperGuide() {
                                 <div className="bg-white/60 p-4 border-b border-white/50">
                                     <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider mb-2">원지 색상</p>
                                     <div className="h-20">
-                                        <PaperSwatch color={p.swatchColor} edge={p.swatchEdge} label={p.name} />
+                                        <PaperSwatch color={p.swatchColor} edge={p.swatchEdge} uid={`r${i}`} />
                                     </div>
                                 </div>
                                 {/* 내용 */}
@@ -294,7 +271,7 @@ export default function PaperGuide() {
                     </div>
                 </div>
 
-                {/* ── 평량 선택 가이드 ── */}
+                {/* ── 종이 선택 가이드 표 ── */}
                 <div className="reveal">
                     <div className="text-center mb-8">
                         <p className="text-xs font-bold text-sky-500 uppercase tracking-[0.2em] mb-3">Quick Reference</p>
@@ -315,24 +292,28 @@ export default function PaperGuide() {
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
                                     {[
-                                        { name: '백판지',       color: 'text-slate-600',   weight: '200~500 g/m²', print: 4, str: 3, use: '화장품·식품·의약품 단상자' },
-                                        { name: '아이보리지',   color: 'text-amber-700',   weight: '200~400 g/m²', print: 5, str: 3, use: '고급 패키지·프리미엄 단상자' },
-                                        { name: '아트지',       color: 'text-sky-600',     weight: '100~250 g/m²', print: 5, str: 2, use: '고품질 인쇄·합지 원지' },
-                                        { name: '크라프트지',   color: 'text-orange-800',  weight: '70~200 g/m²',  print: 3, str: 5, use: '쇼핑백·친환경 포장' },
+                                        { name: '백판지',         color: 'text-slate-600',   weight: '200~500 g/m²', print: 4, str: 3, use: '화장품·식품·의약품 단상자' },
+                                        { name: '아이보리지',     color: 'text-amber-700',   weight: '200~400 g/m²', print: 5, str: 3, use: '고급 패키지·프리미엄 단상자' },
+                                        { name: '아트지',         color: 'text-sky-600',     weight: '100~250 g/m²', print: 5, str: 2, use: '고품질 인쇄·합지 원지' },
+                                        { name: '크라프트지',     color: 'text-orange-800',  weight: '70~200 g/m²',  print: 3, str: 5, use: '쇼핑백·친환경 포장' },
                                         { name: '크라프트 라이너', color: 'text-orange-600', weight: '100~300 g/m²', print: 2, str: 5, use: '골판지 외면(겉면지)' },
-                                        { name: '골심지',       color: 'text-yellow-700',  weight: '100~180 g/m²', print: 1, str: 4, use: '골판지 파형 중간층' },
+                                        { name: '골심지',         color: 'text-yellow-700',  weight: '100~180 g/m²', print: 1, str: 4, use: '골판지 파형 중간층' },
                                     ].map((row, i) => (
-                                        <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                                        <tr key={row.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
                                             <td className={`px-4 py-3 font-black ${row.color}`}>{row.name}</td>
                                             <td className="px-4 py-3 text-center text-gray-600 text-xs">{row.weight}</td>
                                             <td className="px-4 py-3">
                                                 <div className="flex justify-center gap-0.5">
-                                                    {[...Array(5)].map((_, j) => <div key={j} className={`w-3 h-1.5 rounded-full ${j < row.print ? 'bg-sky-400' : 'bg-gray-200'}`} />)}
+                                                    {Array.from({ length: 5 }).map((_, j) => (
+                                                        <div key={j} className={`w-3 h-1.5 rounded-full ${j < row.print ? 'bg-sky-400' : 'bg-gray-200'}`} />
+                                                    ))}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-3">
                                                 <div className="flex justify-center gap-0.5">
-                                                    {[...Array(5)].map((_, j) => <div key={j} className={`w-3 h-1.5 rounded-full ${j < row.str ? 'bg-orange-400' : 'bg-gray-200'}`} />)}
+                                                    {Array.from({ length: 5 }).map((_, j) => (
+                                                        <div key={j} className={`w-3 h-1.5 rounded-full ${j < row.str ? 'bg-orange-400' : 'bg-gray-200'}`} />
+                                                    ))}
                                                 </div>
                                             </td>
                                             <td className="px-4 py-3 text-gray-600 text-xs">{row.use}</td>
