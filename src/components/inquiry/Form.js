@@ -480,7 +480,7 @@ export default function Form() {
                                         </label>
                                         <input
                                             id="quantity" type="text" autoComplete="off"
-                                            placeholder="예) 500개, 1,000개 이상"
+                                            placeholder="최소 1000개 이상"
                                             {...register("quantity", {
                                                 required: '수량을 입력해주세요',
                                                 maxLength: { value: 30, message: '30자 이내로 입력해주세요' },
