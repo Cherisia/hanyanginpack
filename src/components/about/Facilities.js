@@ -10,12 +10,12 @@ import facilities_5 from "/public/img/main/facilities/facilities_5.jpg";
 import facilities_6 from "/public/img/main/facilities/facilities_6.jpg";
 
 const FACILITIES = [
-    { src: facilities_3, label: '제판 설비', alt: '한양인팩 제판 설비' },
-    { src: facilities_1, label: '인쇄 설비', alt: '한양인팩 인쇄 설비' },
-    { src: facilities_6, label: '인쇄 설비', alt: '한양인팩 인쇄 설비' },
-    { src: facilities_2, label: '코팅 설비', alt: '한양인팩 코팅 설비' },
-    { src: facilities_4, label: '제단 설비', alt: '한양인팩 제단 설비' },
-    { src: facilities_5, label: '성형 설비', alt: '한양인팩 박스 성형 설비' },
+    { src: facilities_1, label: '제판 설비', alt: '한양인팩 제판 설비' },
+    { src: facilities_2, label: 'CTP 설비', alt: '한양인팩 CTP 설비' },
+    { src: facilities_3, label: '인쇄 설비', alt: '한양인팩 인쇄 설비' },
+    { src: facilities_4, label: '인쇄 설비', alt: '한양인팩 인쇄 설비' },
+    { src: facilities_5, label: '코팅 설비', alt: '한양인팩 코팅 설비' },
+    { src: facilities_6, label: '합지 설비', alt: '한양인팩 합지 설비' },
 ];
 
 export default function Facilities() {
