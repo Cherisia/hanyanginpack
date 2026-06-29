@@ -1,5 +1,5 @@
 import "./globals.css";
-import KakaoChatButton from "@/components/share/KakaoChatButton";
+// import KakaoChatButton from "@/components/share/KakaoChatButton";
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/share/Footer";
 import {Toaster} from "sonner";
@@ -55,7 +55,7 @@ export default function RootLayout({children}) {
         <body>
         <Navbar/>
         {children}
-        <KakaoChatButton/>
+        {/* <KakaoChatButton/> */}
         <Footer/>
         <Toaster richColors position="top-center" />
         </body>
