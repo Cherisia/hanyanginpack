@@ -81,7 +81,7 @@ export default async function inquiry(req, resp) {
 
             // 관리자에게 신규 문의 알림 이메일 발송 (이미지 첨부)
             const adminEmailResult = await sendEmail({
-                to: process.env.ADMIN_EMAIL,
+                to: process.env.ADMIN_EMAIL.split(',').map(e => e.trim()),
                 subject: '[한양인팩] 신규 문의 접수 알림',
                 html: getAdminInquiryEmailTemplate(emailData),
                 attachments,
