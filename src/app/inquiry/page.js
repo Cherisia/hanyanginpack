@@ -12,6 +12,16 @@ export const metadata = {
         description: '포장박스·패키지상자 제작 견적 문의. 박스 형태, 수량, 사이즈 등을 남겨주시면 빠르게 안내해 드립니다.',
         url: 'https://hanyanginpack.com/inquiry',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

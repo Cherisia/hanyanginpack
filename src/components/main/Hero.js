@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import MainImage from "/public/img/main/hero/main2.jpg";
+import MainImage from "/public/img/main/hero/main2.webp";
 
 export default function Hero() {
     return (

@@ -34,7 +34,7 @@ export const metadata = {
         locale: 'ko_KR',
         images: [
             {
-                url: '/img/logo/logo.jpg',
+                url: '/logo/logo.jpg',
                 width: 800,
                 height: 600,
                 alt: '한양인팩 포장박스 제작 전문',
@@ -45,7 +45,7 @@ export const metadata = {
         card: 'summary_large_image',
         title: '패키지상자·포장박스 제작 전문 | 한양인팩',
         description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
-        images: ['/img/logo/logo.jpg'],
+        images: ['/logo/logo.jpg'],
     },
 };
 

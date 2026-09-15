@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import img1 from "/public/img/main/design.jpg";
-import img2 from "/public/img/main/knowhow.jpg";
-import img3 from "/public/img/main/calendar.jpg";
+import img1 from "/public/img/main/design.webp";
+import img2 from "/public/img/main/knowhow.webp";
+import img3 from "/public/img/main/calendar.webp";
 
 const features = [
     {

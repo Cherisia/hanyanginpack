@@ -12,6 +12,16 @@ export const metadata = {
         description: '경기도 김포시 승가로76번길 29. 전화 031-997-9021. 평일 09:00~18:00 운영.',
         url: 'https://hanyanginpack.com/contact',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

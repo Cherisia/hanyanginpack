@@ -11,6 +11,16 @@ export const metadata = {
         description: '골판지박스부터 케이크박스까지 18가지 박스 구조를 한눈에 확인하세요. 제품에 맞는 박스를 선택해 바로 견적을 받아보실 수 있습니다.',
         url: 'https://hanyanginpack.com/guide',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

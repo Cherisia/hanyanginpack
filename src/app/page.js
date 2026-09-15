@@ -17,6 +17,16 @@ export const metadata = {
         description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
         url: BASE_URL,
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

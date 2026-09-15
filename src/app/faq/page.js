@@ -12,6 +12,16 @@ export const metadata = {
         description: '포장박스 제작 관련 자주 묻는 질문. 제작 기간, 인쇄 방식, 후가공, 견적 등 궁금한 점을 확인하세요.',
         url: 'https://hanyanginpack.com/faq',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

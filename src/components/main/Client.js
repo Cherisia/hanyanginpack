@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import client1 from "/public/img/main/client/삼성.jpg";
-import client2 from "/public/img/main/client/대상.png";
-import client3 from "/public/img/main/client/유닉스전자.jpg";
-import client4 from "/public/img/main/client/효성인터내셔널.jpg";
-import client5 from "/public/img/main/client/에이스전자.png";
-import client6 from "/public/img/main/client/맥스타산업.png";
+import client1 from "/public/img/main/client/삼성.webp";
+import client2 from "/public/img/main/client/대상.webp";
+import client3 from "/public/img/main/client/유닉스전자.webp";
+import client4 from "/public/img/main/client/효성인터내셔널.webp";
+import client5 from "/public/img/main/client/에이스전자.webp";
+import client6 from "/public/img/main/client/맥스타산업.webp";
 import client7 from "/public/img/main/client/에이치엠텍.webp";
-import client8 from "/public/img/main/client/매크로통상.jpg";
+import client8 from "/public/img/main/client/매크로통상.webp";
 
 const clients = [
     { name: '삼성', img: client1 },
