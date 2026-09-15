@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReveal } from "@/hooks/useReveal";
 import StarBar from "@/components/guide/StarBar";
-import crossSection from "/public/img/guide/corrugated/cross_section.jpg";
+import crossSection from "/public/img/guide/corrugated/cross_section.webp";
 
 const FLUTES = [
     {

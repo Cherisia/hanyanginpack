@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import facilities_1 from "/public/img/main/facilities/facilities_1.jpg";
-import facilities_2 from "/public/img/main/facilities/facilities_2.jpg";
-import facilities_3 from "/public/img/main/facilities/facilities_3.jpg";
-import facilities_4 from "/public/img/main/facilities/facilities_4.jpg";
-import facilities_5 from "/public/img/main/facilities/facilities_5.jpg";
-import facilities_6 from "/public/img/main/facilities/facilities_6.jpg";
+import facilities_1 from "/public/img/main/facilities/facilities_1.webp";
+import facilities_2 from "/public/img/main/facilities/facilities_2.webp";
+import facilities_3 from "/public/img/main/facilities/facilities_3.webp";
+import facilities_4 from "/public/img/main/facilities/facilities_4.webp";
+import facilities_5 from "/public/img/main/facilities/facilities_5.webp";
+import facilities_6 from "/public/img/main/facilities/facilities_6.webp";
 
 const FACILITIES = [
     { src: facilities_1, label: '제판 설비', alt: '한양인팩 제판 설비' },

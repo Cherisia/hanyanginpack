@@ -17,7 +17,7 @@ export default function KakaoChatButton() {
                     channelPublicId: '_UvdHG',
                 })
             }}>
-                <Image src="/img/kakao_chat.png" width={55} height={55} alt="한양인팩 상담버튼"/>
+                <Image src="/img/kakao_chat.webp" width={55} height={55} alt="한양인팩 상담버튼"/>
                 <span className="hidden">한양인팩 상담버튼</span>
             </button>
         </div>

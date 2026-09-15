@@ -5,24 +5,24 @@ import Link from "next/link";
 import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 
-import box1 from "/public/img/inquiry/box/1.png";
-import box2 from "/public/img/inquiry/box/2.png";
-import box3 from "/public/img/inquiry/box/3.png";
-import box4 from "/public/img/inquiry/box/4.png";
-import box5 from "/public/img/inquiry/box/5.png";
-import box6 from "/public/img/inquiry/box/6.png";
-import box7 from "/public/img/inquiry/box/7.png";
-import box8 from "/public/img/inquiry/box/8.png";
-import box9 from "/public/img/inquiry/box/9.png";
-import box10 from "/public/img/inquiry/box/10.png";
-import box11 from "/public/img/inquiry/box/11.png";
-import box12 from "/public/img/inquiry/box/12.png";
-import box13 from "/public/img/inquiry/box/13.png";
-import box14 from "/public/img/inquiry/box/14.png";
-import box15 from "/public/img/inquiry/box/15.png";
-import box16 from "/public/img/inquiry/box/16.png";
-import box17 from "/public/img/inquiry/box/17.png";
-import box18 from "/public/img/inquiry/box/18.png";
+import box1 from "/public/img/inquiry/box/1.webp";
+import box2 from "/public/img/inquiry/box/2.webp";
+import box3 from "/public/img/inquiry/box/3.webp";
+import box4 from "/public/img/inquiry/box/4.webp";
+import box5 from "/public/img/inquiry/box/5.webp";
+import box6 from "/public/img/inquiry/box/6.webp";
+import box7 from "/public/img/inquiry/box/7.webp";
+import box8 from "/public/img/inquiry/box/8.webp";
+import box9 from "/public/img/inquiry/box/9.webp";
+import box10 from "/public/img/inquiry/box/10.webp";
+import box11 from "/public/img/inquiry/box/11.webp";
+import box12 from "/public/img/inquiry/box/12.webp";
+import box13 from "/public/img/inquiry/box/13.webp";
+import box14 from "/public/img/inquiry/box/14.webp";
+import box15 from "/public/img/inquiry/box/15.webp";
+import box16 from "/public/img/inquiry/box/16.webp";
+import box17 from "/public/img/inquiry/box/17.webp";
+import box18 from "/public/img/inquiry/box/18.webp";
 
 const CATEGORIES = [
     { id: 'all', label: '전체' },

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import MainImage from "/public/img/faq/faq_main.jpg"
+import MainImage from "/public/img/faq/faq_main.webp"
 import TypingText from "@/components/utils/TypingText";
 
 export default function Banner() {

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import ability from "/public/img/about/service/ability.gif";
-import trust from "/public/img/about/service/trust.gif";
-import creative from "/public/img/about/service/creative.gif";
-import innovation from "/public/img/about/service/innovation.gif";
+import ability from "/public/img/about/service/ability.webp";
+import trust from "/public/img/about/service/trust.webp";
+import creative from "/public/img/about/service/creative.webp";
+import innovation from "/public/img/about/service/innovation.webp";
 
 const ITEMS = [
     {
