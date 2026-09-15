@@ -11,6 +11,16 @@ export const metadata = {
         description: 'A골부터 F골까지 플루트 종류와 편면·양면·이중·삼중 구조를 비교해 제품에 맞는 골판지를 선택하세요.',
         url: 'https://hanyanginpack.com/guide/corrugated',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

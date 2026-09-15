@@ -11,6 +11,16 @@ export const metadata = {
         description: '백판지·아이보리지·크라프트지 등 포장박스에 사용되는 종이 종류와 특성을 한눈에 비교하세요.',
         url: 'https://hanyanginpack.com/guide/paper',
         type: 'website',
+        siteName: '한양인팩',
+        locale: 'ko_KR',
+        images: [
+            {
+                url: '/logo/logo.jpg',
+                width: 800,
+                height: 600,
+                alt: '한양인팩 포장박스 제작 전문',
+            },
+        ],
     },
 };
 

@@ -8,13 +8,13 @@ import Client from "@/components/main/Client";
 const BASE_URL = 'https://hanyanginpack.com';
 
 export const metadata = {
-    title: '패키지상자·포장박스 제작 전문 | 한양인팩',
-    description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템. 골판지박스·인쇄박스·선물박스·맞춤 패키지 제작.',
-    keywords: ['포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스제작', '제품포장', '한양인팩', '김포박스', '맞춤박스'],
+    title: '김포 포장박스 제작 전문 | 한양인팩',
+    description: '경기도 김포 소재, 1999년 설립·26년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템. 골판지박스·인쇄박스·선물박스·맞춤 패키지 제작.',
+    keywords: ['김포 포장박스', '김포 포장박스제작', '김포 패키지제작', '포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스제작', '제품포장', '한양인팩', '맞춤박스'],
     alternates: { canonical: BASE_URL },
     openGraph: {
-        title: '패키지상자·포장박스 제작 전문 | 한양인팩',
-        description: '1999년 설립, 26년 경력의 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
+        title: '김포 포장박스 제작 전문 | 한양인팩',
+        description: '경기도 김포에서 26년째 이어온 포장박스 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
         url: BASE_URL,
         type: 'website',
         siteName: '한양인팩',
@@ -34,7 +34,7 @@ const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: '한양인팩',
-    description: '1999년 설립, 포장박스·패키지상자 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
+    description: '경기도 김포시 소재, 1999년 설립 포장박스·패키지상자 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
     url: BASE_URL,
     telephone: '031-997-9021',
     email: 'manager@hanyanginpack.com',

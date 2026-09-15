@@ -5,7 +5,7 @@ import MainSection from "@/components/faq/MainSection";
 export const metadata = {
     title: '자주 묻는 질문',
     description: '한양인팩 포장박스 제작 관련 자주 묻는 질문(FAQ). 박스 제작 기간, 인쇄 방식, 후가공, 견적 문의 방법 등 궁금한 점을 확인하세요.',
-    keywords: ['포장박스 FAQ', '박스제작 문의', '인쇄방식', '후가공', '박스 제작기간', '한양인팩 FAQ'],
+    keywords: ['포장박스 FAQ', '김포 포장박스 문의', '박스제작 문의', '인쇄방식', '후가공', '박스 제작기간', '한양인팩 FAQ'],
     alternates: { canonical: 'https://hanyanginpack.com/faq' },
     openGraph: {
         title: '자주 묻는 질문 | 한양인팩',
