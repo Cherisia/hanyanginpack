@@ -30,40 +30,90 @@ export const metadata = {
     },
 };
 
+const ORG_ID = `${BASE_URL}/#organization`;
+const WEBSITE_ID = `${BASE_URL}/#website`;
+const WEBPAGE_ID = `${BASE_URL}/#webpage`;
+
+function makeService(name, description) {
+    return {
+        '@type': 'Offer',
+        url: `${BASE_URL}/guide`,
+        itemOffered: {
+            '@type': 'Service',
+            name,
+            serviceType: name,
+            description,
+            areaServed: 'KR',
+            provider: { '@id': ORG_ID },
+            url: `${BASE_URL}/guide`,
+        },
+    };
+}
+
 const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: '한양인팩',
-    description: '경기도 김포시 소재, 1999년 설립 포장박스·패키지상자 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
-    url: BASE_URL,
-    telephone: '031-997-9021',
-    email: 'manager@hanyanginpack.com',
-    faxNumber: '031-997-8348',
-    foundingDate: '1999',
-    address: {
-        '@type': 'PostalAddress',
-        streetAddress: '승가로76번길 29',
-        addressLocality: '김포시',
-        addressRegion: '경기도',
-        postalCode: '10043',
-        addressCountry: 'KR',
-    },
-    openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '18:00',
-    },
-    hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: '포장박스 제작 서비스',
-        itemListElement: [
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: '골판지 포장박스 제작' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: '인쇄 패키지상자 제작' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: '선물용 고급 박스 제작' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: '맞춤 패키지 설계·디자인' } },
-        ],
-    },
+    '@graph': [
+        {
+            '@type': 'LocalBusiness',
+            '@id': ORG_ID,
+            name: '한양인팩',
+            description: '경기도 김포시 소재, 1999년 설립 포장박스·패키지상자 제작 전문업체. 설계·디자인·제작·납품 원스톱 시스템.',
+            url: BASE_URL,
+            telephone: '031-997-9021',
+            email: 'manager@hanyanginpack.com',
+            faxNumber: '031-997-8348',
+            foundingDate: '1999',
+            image: `${BASE_URL}/logo/logo.jpg`,
+            priceRange: '₩₩',
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: '승가로76번길 29',
+                addressLocality: '김포시',
+                addressRegion: '경기도',
+                postalCode: '10043',
+                addressCountry: 'KR',
+            },
+            geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 37.6070352,
+                longitude: 126.7144741,
+            },
+            openingHours: 'Mo-Fr 09:00-18:00',
+            openingHoursSpecification: {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                opens: '09:00',
+                closes: '18:00',
+            },
+            hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: '포장박스 제작 서비스',
+                itemListElement: [
+                    makeService('골판지 포장박스 제작', '골판지 소재로 제작하는 일반·산업용 포장박스 제작 서비스'),
+                    makeService('인쇄 패키지상자 제작', '오프셋·실크 인쇄를 적용한 브랜드 패키지상자 제작 서비스'),
+                    makeService('선물용 고급 박스 제작', '자석클로저·리본 등 고급 마감의 선물용 박스 제작 서비스'),
+                    makeService('맞춤 패키지 설계·디자인', '고객 브랜드에 맞춘 사이즈·소재·인쇄 방식 맞춤 설계 및 디자인 서비스'),
+                ],
+            },
+        },
+        {
+            '@type': 'WebSite',
+            '@id': WEBSITE_ID,
+            name: '한양인팩',
+            url: BASE_URL,
+            inLanguage: 'ko-KR',
+            publisher: { '@id': ORG_ID },
+        },
+        {
+            '@type': 'WebPage',
+            '@id': WEBPAGE_ID,
+            url: BASE_URL,
+            name: '김포 포장박스 제작 전문 | 한양인팩',
+            inLanguage: 'ko-KR',
+            isPartOf: { '@id': WEBSITE_ID },
+            about: { '@id': ORG_ID },
+        },
+    ],
 };
 
 export default function Home() {
