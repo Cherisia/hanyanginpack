@@ -13,7 +13,7 @@ export default function Footer() {
                             설계부터 납품까지 원스톱 시스템
                         </p>
                         <div className="flex gap-2 mt-4">
-                            <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">26년 경력</span>
+                            <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">26년 업력</span>
                             <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">원스톱</span>
                             <span className="bg-sky-900 text-sky-300 text-[10px] font-bold px-2.5 py-1 rounded-full">맞춤 제작</span>
                         </div>

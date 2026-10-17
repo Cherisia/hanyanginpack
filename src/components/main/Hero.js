@@ -26,7 +26,7 @@ export default function Hero() {
                     김포 포장박스 제작 전문<br />한양인팩
                 </h1>
                 <p className="text-white/65 text-sm leading-relaxed mb-8 max-w-lg break-keep">
-                    경기도 김포에 위치한, 1999년에 설립한 26년 경력의 패키지상자 전문업체.<br />
+                    경기도 김포에 위치한, 1999년에 설립한 26년 업력의 패키지상자 전문업체.<br />
                     설계부터 디자인, 제작, 납품까지 원스톱 시스템으로 최상의 포장박스를 만들어 드립니다.
                 </p>
                 <div className="flex flex-wrap items-center gap-3">

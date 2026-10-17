@@ -471,7 +471,7 @@ export default function CorrugatedGuide() {
                         전문가에게 바로 물어보세요
                     </h2>
                     <p className="text-sm opacity-80 mb-8 break-keep">
-                        26년 경력의 전문가가 제품에 맞는 골 종류와 구조를 직접 추천해 드립니다.
+                        26년 업력의 전문가가 제품에 맞는 골 종류와 구조를 직접 추천해 드립니다.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <Link

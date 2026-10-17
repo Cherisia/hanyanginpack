@@ -332,7 +332,7 @@ export default function PaperGuide() {
                         전문가에게 바로 물어보세요
                     </h2>
                     <p className="text-sm opacity-80 mb-8 break-keep">
-                        26년 경력의 전문가가 제품과 예산에 맞는 종이 종류와 평량을 직접 추천해 드립니다.
+                        26년 업력의 전문가가 제품과 예산에 맞는 종이 종류와 평량을 직접 추천해 드립니다.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <Link

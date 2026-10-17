@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const stats = [
-    { value: '26', unit: '년', label: '업계 경력' },
+    { value: '26', unit: '년', label: '업력' },
     { value: '3,000', unit: '+', label: '납품 고객사' },
     { value: '원스톱', unit: '', label: '설계·제작·납품' },
     { value: '100', unit: '%', label: '맞춤 제작' },
