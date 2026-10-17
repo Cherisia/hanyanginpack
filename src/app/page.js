@@ -10,7 +10,7 @@ const BASE_URL = 'https://hanyanginpack.com';
 export const metadata = {
     title: '김포 포장박스 제작 전문 | 한양인팩',
     description: '경기도 김포 소재, 1999년 설립·26년 경력의 포장박스 제작 전문업체 한양인팩. 패키지상자 설계부터 디자인·제작·납품까지 원스톱 시스템. 골판지박스·인쇄박스·선물박스·맞춤 패키지 제작.',
-    keywords: ['김포 포장박스', '김포 포장박스제작', '김포 패키지제작', '김포 상자제작', '포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스제작', '제품포장', '한양인팩', '맞춤박스'],
+    keywords: ['김포 포장박스', '김포 포장박스제작', '김포 패키지제작', '김포 상자제작', '경기도 포장박스', '포장박스제작', '패키지상자', '박스제작', '포장박스', '골판지박스', '인쇄박스', '선물박스제작', '제품포장', '한양인팩', '맞춤박스'],
     alternates: { canonical: BASE_URL },
     openGraph: {
         title: '김포 포장박스 제작 전문 | 한양인팩',
@@ -21,7 +21,7 @@ export const metadata = {
         locale: 'ko_KR',
         images: [
             {
-                url: '/logo/logo.jpg',
+                url: '/logo/logo.webp',
                 width: 800,
                 height: 600,
                 alt: '한양인팩 포장박스 제작 전문',
@@ -64,8 +64,12 @@ const jsonLd = {
             email: 'manager@hanyanginpack.com',
             faxNumber: '031-997-8348',
             foundingDate: '1999',
-            image: `${BASE_URL}/logo/logo.jpg`,
+            image: `${BASE_URL}/logo/logo.webp`,
             priceRange: '₩₩',
+            sameAs: [
+                'https://www.google.com/maps/place/%ED%95%9C%EC%96%91%EC%9D%B8%ED%8C%A9/@37.6070352,126.7144741,17z',
+                'https://github.com/Cherisia/hanyanginpack',
+            ],
             address: {
                 '@type': 'PostalAddress',
                 streetAddress: '승가로76번길 29',
@@ -99,14 +103,6 @@ const jsonLd = {
             },
         },
         {
-            '@type': 'WebSite',
-            '@id': WEBSITE_ID,
-            name: '한양인팩',
-            url: BASE_URL,
-            inLanguage: 'ko-KR',
-            publisher: { '@id': ORG_ID },
-        },
-        {
             '@type': 'WebPage',
             '@id': WEBPAGE_ID,
             url: BASE_URL,
@@ -117,6 +113,7 @@ const jsonLd = {
         },
         {
             '@type': 'QAPage',
+            '@id': `${BASE_URL}/#qapage`,
             mainEntity: {
                 '@type': 'Question',
                 name: '김포에서 포장박스 제작 잘하는 업체는?',

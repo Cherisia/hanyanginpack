@@ -15,7 +15,7 @@ export const metadata = {
         locale: 'ko_KR',
         images: [
             {
-                url: '/logo/logo.jpg',
+                url: '/logo/logo.webp',
                 width: 800,
                 height: 600,
                 alt: '한양인팩 포장박스 제작 전문',
@@ -24,9 +24,19 @@ export const metadata = {
     },
 };
 
+const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://hanyanginpack.com' },
+        { '@type': 'ListItem', position: 2, name: '박스 제작 가이드', item: 'https://hanyanginpack.com/guide' },
+    ],
+};
+
 export default function GuidePage() {
     return (
         <div className="w-full bg-gray-50 pb-10">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <GuideBanner />
             <GuideSection />
         </div>

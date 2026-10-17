@@ -3,7 +3,7 @@ import MainImage from "/public/img/guide/guide_main.webp";
 import TypingText from "@/components/utils/TypingText";
 
 export default function GuideBanner({
-    title = '박스 형태',
+    title = '박스 제작 가이드',
     sub = '어떤 박스가 필요하신가요?',
 }) {
     return (

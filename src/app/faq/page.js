@@ -5,7 +5,7 @@ import MainSection from "@/components/faq/MainSection";
 export const metadata = {
     title: '자주 묻는 질문',
     description: '한양인팩 포장박스 제작 관련 자주 묻는 질문(FAQ). 박스 제작 기간, 인쇄 방식, 후가공, 견적 문의 방법 등 궁금한 점을 확인하세요.',
-    keywords: ['포장박스 FAQ', '김포 포장박스 문의', '박스제작 문의', '인쇄방식', '후가공', '박스 제작기간', '한양인팩 FAQ'],
+    keywords: ['포장박스 FAQ', '김포 포장박스 문의', '박스제작 문의', '인쇄방식', '후가공', '박스 제작기간', '친환경 박스', '맞춤 디자인 박스', '한양인팩 FAQ'],
     alternates: { canonical: 'https://hanyanginpack.com/faq' },
     openGraph: {
         title: '자주 묻는 질문 | 한양인팩',
@@ -16,13 +16,22 @@ export const metadata = {
         locale: 'ko_KR',
         images: [
             {
-                url: '/logo/logo.jpg',
+                url: '/logo/logo.webp',
                 width: 800,
                 height: 600,
                 alt: '한양인팩 포장박스 제작 전문',
             },
         ],
     },
+};
+
+const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '홈', item: 'https://hanyanginpack.com' },
+        { '@type': 'ListItem', position: 2, name: '자주 묻는 질문', item: 'https://hanyanginpack.com/faq' },
+    ],
 };
 
 const jsonLd = {
@@ -117,12 +126,45 @@ const jsonLd = {
                 text: '납기 단축이 필요한 경우 견적 문의 시 별도로 요청해 주시면 최대한 빠르게 처리할 수 있도록 도와드립니다.',
             },
         },
+        {
+            '@type': 'Question',
+            name: '맞춤 디자인이나 로고 인쇄가 가능한가요?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: '네, 고객 브랜드에 맞춘 맞춤 디자인과 로고 인쇄가 가능합니다. 디자인 시안이 있으시면 파일을 보내주시고, 없으시면 컨셉만 알려주시면 디자인 시안을 제작해 드립니다.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: '대량 주문 시 가격 할인이 되나요?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: '네, 주문 수량에 따라 단가가 조정됩니다. 수량이 많을수록 단가가 낮아지며, 정확한 가격은 박스 사양과 수량에 따라 달라지므로 견적 문의를 통해 확인해 주세요.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: '친환경 소재로 제작할 수 있나요?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: '네, 재활용 가능한 골판지와 친환경 인증 종이를 사용할 수 있습니다. FSC 인증 종이, 콩기름 잉크 등 친환경 옵션을 선택하실 수 있습니다.',
+            },
+        },
+        {
+            '@type': 'Question',
+            name: '제품 불량이 발생하면 어떻게 처리되나요?',
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: '출고 전 전수 검사를 진행하여 불량을 최소화하고 있습니다. 만약 불량이 발생할 경우 즉시 재제작 또는 교환 처리해 드리며, 고객이 만족하실 때까지 책임지고 대응합니다.',
+            },
+        },
     ],
 };
 
 export default function Faq() {
     return (
         <div className="w-full bg-gray-50 pb-10">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}/>
             <Banner/>
             <MainSection/>
