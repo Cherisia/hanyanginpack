@@ -16,4 +16,4 @@ const executeQuery = async (query, params = []) => {
     }
 };
 
-module.exports = { executeQuery };
+export { executeQuery };
